@@ -1,14 +1,13 @@
 package bateaux;
 
-public class Torpilleur implements Bateaux {
+import jeux.Jeux;
+import jeux.Place;
+import utils.Player;
 
-    /**
-     * Pour avoir le nombre de fois que l'objet est present sur la grille( par joueur)
-     *
-     * @return an int du nombre de fois present dans le jeu
-     */
-    @Override
-    public int getNumber() {
-        return 0;
+public class Torpilleur extends Bateaux {
+
+
+    public Torpilleur(Place[] place, Jeux game, Player player) {
+        super(place, game, player);
     }
 }
