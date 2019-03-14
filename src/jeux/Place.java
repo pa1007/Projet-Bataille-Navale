@@ -1,3 +1,5 @@
+package jeux;
+
 import java.util.Objects;
 
 public class Place {

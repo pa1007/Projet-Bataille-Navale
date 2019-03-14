@@ -1,3 +1,5 @@
+package jeux;
+
 public class Grille {
 
     /**
