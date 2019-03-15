@@ -6,7 +6,8 @@ import utils.Player;
 
 public class ContreTorpilleur extends Bateaux {
 
-    public ContreTorpilleur(Place[] place, Jeux game, Player player) {
-        super(place, game, player);
+
+    public ContreTorpilleur(Place place, Jeux game, Player player, boolean orientation) {
+        super(place, game, player, orientation);
     }
 }

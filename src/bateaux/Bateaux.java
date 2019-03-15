@@ -3,21 +3,55 @@ package bateaux;
 import jeux.Jeux;
 import jeux.Place;
 import utils.Player;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class Bateaux {
 
-    protected List<Place> place;
+    protected List<Place> places;
 
     protected Jeux game;
 
-    protected Player player;
+    protected Player  player;
+    /**
+     * La place en bas a gauche.
+     *
+     * @since 1.0
+     */
+    protected Place   place;
+    /**
+     * L'orientation.
+     */
+    protected boolean orientation;
 
-    public Bateaux(Place[] place, Jeux game, Player player) {
-        this.place = Arrays.asList(place);
+    public Bateaux(Place place, Jeux game, Player player, boolean orientation) {
+        this.place = place;
         this.game = game;
         this.player = player;
+        this.orientation = orientation;
+    }
+
+    /**
+     * @return L'orientatiion.
+     */
+    public boolean getOrientation() {
+        return this.orientation;
+    }
+
+    /**
+     * Sets the <code>orientation</code> field.
+     *
+     * @param orientation L'orientatiion.
+     */
+    public void setOrientation(boolean orientation) {
+        this.orientation = orientation;
+    }
+
+    /**
+     * @return La place en bas a gauche.
+     * @since 1.0
+     */
+    public Place getPlace() {
+        return this.place;
     }
 
 
@@ -27,7 +61,7 @@ public abstract class Bateaux {
      * @return une place
      */
     public List<Place> getPlaces() {
-        return place;
+        return places;
     }
 
     /**
@@ -42,7 +76,7 @@ public abstract class Bateaux {
     /**
      * Getter du player propri
      *
-     * @return
+     * @return le joueur
      */
     public Player getPlayer() {
         return player;
