@@ -1,108 +1,85 @@
 package jeux;
 
-import bateaux.Bateaux;
+import exception.GrilleNonCreeException;
 import utils.Player;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Jeux {
 
-    /**
-     * La map princiaple pour avoir un bateau.
-     */
-    private Map<Player, List<Bateaux>> mapPlayerListBateaux;
 
-    public Jeux() {
-        mapPlayerListBateaux = new HashMap<>();
+    /**
+     * Liste des players en jeux.
+     */
+    private List<Player> listPlayer;
+
+    /**
+     * Le mode de jeux.
+     */
+    private int modeDeJeux;
+
+    public Jeux(int modeDeJeux, List<Player> listPlayer) {
+        this.modeDeJeux = modeDeJeux;
+        this.listPlayer = listPlayer;
     }
 
     /**
-     * @return La map princiaple pour avoir un bateau.
+     * @return Liste des players en jeux.
      */
-    public Map<Player, List<Bateaux>> getMapPlayerListBateaux() {
-        return this.mapPlayerListBateaux;
+    public List<Player> getListPlayer() {
+        return this.listPlayer;
     }
 
     /**
-     * Sets the <code>mapPlayerListBateaux</code> field.
-     *
-     * @param mapPlayerListBateaux La map princiaple pour avoir un bateau.
+     * @return Le mode de jeux.
      */
-    public void setMapPlayerListBateaux(Map<Player, List<Bateaux>> mapPlayerListBateaux) {
-        this.mapPlayerListBateaux = mapPlayerListBateaux;
+    public int getModeDeJeux() {
+        return modeDeJeux;
     }
 
+    public void lancerPartie() {
 
-    public Bateaux getPlace(int verticale, int horizontal) {
-        Place p = new Place(verticale, horizontal);
-        for (List<Bateaux> bat : mapPlayerListBateaux.values()) {
-            for (Bateaux b : bat) {
-                if (b.getPlaces().contains(p)) {
-                    return b;
-                }
+    }
+
+    private void ajouterBateaux(Jeux j) throws GrilleNonCreeException {
+        Scanner sc = new Scanner(System.in);
+        for (Player p : j.getListPlayer()) {
+            if (p.getGrille() == null) {
+                throw new GrilleNonCreeException();
             }
-        }
-        return null;
-    }
+            Grille g = p.getGrille();
+            System.out.println(g);
+            System.out.println("Ajouter le bateux de 5 de Longeur ex: A6");
+            String s = sc.nextLine();
+            System.out.println("true = Horizontale, false = Vertiacale");
+            Place pl = checkPlace(s, g, 5, sc.nextBoolean(), sc);
 
+            System.out.println("Ajouter le bateux de 4 de Longeur ex: A6");
+            s = sc.nextLine();
+            System.out.println("true = Horizontale, false = Vertiacale");
+            Place p2 = checkPlace(s, g, 4, sc.nextBoolean(), sc);
 
-    /**
-     * methode statique qui lance un menu interactif qui permet de choisir les différents mode de jeux
-     * et d'accéder aux paramètres
-     */
-    public static void menuInteractif() {
-        int choix;
+            System.out.println("Ajouter le bateux de 3 de Longeur ex: A6");
+            s = sc.nextLine();
+            System.out.println("true = Horizontale, false = Vertiacale");
+            Place p3 = checkPlace(s, g, 3, sc.nextBoolean(), sc);
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvenue dans la bataille navale :");
-        System.out.println("1 : Jouer contre une autre joueur");
-        System.out.println("2 : Jouer contre l'intelligence artificielle");
-        System.out.println("3 : Choix de la taille de la grille");
-        choix = sc.nextInt();
-
-        switch (choix) {
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-                Jeux.modifTailleGrille();
-                Jeux.clearScreen();
-                Jeux.menuInteractif();
-                break;
-
-            default:
-
+            System.out.println("Ajouter le bateux de 2 de Longeur ex: A6");
+            s = sc.nextLine();
+            System.out.println("true = Horizontale, false = Vertiacale");
+            Place p4 = checkPlace(s, g, 2, sc.nextBoolean(), sc);
+            System.out.println("Ajouter le bateux de 1 de Longeur ex: A6");
+            s = sc.nextLine();
+            System.out.println("true = Horizontale, false = Vertiacale");
+            Place p5 = checkPlace(s, g, 1, sc.nextBoolean(), sc);
         }
     }
 
-
-    /**
-     * methode statique qui permet au joueur de modifier la taille de la grille avant de jouer
-     */
-    public static void modifTailleGrille() {
-        Scanner sc = new Scanner(System.in);
-        Jeux    j  = new Jeux(); // ajout de ça,faudra modif todo modif
-        System.out.println("Nombre de case horizontales : ");
-        int horizontale = sc.nextInt();
-
-        System.out.println("Nombre de case verticales : ");
-        int verticale = sc.nextInt();
-
-        Grille g = new Grille(horizontale, verticale, j);
-    }
-
-
-    /**
-     * methode statique qui nettoie la console pour une meilleure lisibilité
-     */
-    public static void clearScreen() {
-        for (int i = 0; i < 50; ++i) {
-            System.out.println();
+    private Place checkPlace(String s, Grille g, int tailleBat, boolean b, Scanner sc) {
+        Place pl = new Place(s);
+        while (!g.placeValide(pl)) {
+            System.out.println("Place non valide");
+            pl = new Place();
         }
     }
 }

@@ -38,6 +38,10 @@ public class Place {
         this.name = column + this.row;
     }
 
+    public Place(int verticale, int horizontal) {
+
+    }
+
     /**
      * @return The column character.
      * @since 1.0
@@ -128,7 +132,7 @@ public class Place {
      */
     private void generatePlace() {
         column = String.valueOf(name.charAt(0));
-        row = Character.digit(name.charAt(1), 10);
+        row = Integer.valueOf(name.replace(column, ""));
     }
 
 

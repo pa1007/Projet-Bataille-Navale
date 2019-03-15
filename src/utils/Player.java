@@ -1,5 +1,7 @@
 package utils;
 
+import jeux.Grille;
+
 public class Player {
 
     /**
@@ -9,9 +11,36 @@ public class Player {
      */
     private boolean AI;
 
+
+    /**
+     * La grille du joueur.
+     *
+     * @since 1.0
+     */
+    private Grille grille;
+
+
     public Player() {
-        System.out.println();
     }
+
+    /**
+     * @return La grille du joueur.
+     * @since 1.0
+     */
+    public Grille getGrille() {
+        return this.grille;
+    }
+
+    /**
+     * Sets the <code>grille</code> field.
+     *
+     * @param grille La grille du joueur.
+     * @since 1.0
+     */
+    public void setGrille(Grille grille) {
+        this.grille = grille;
+    }
+
 
     public void placerBateau() {
 

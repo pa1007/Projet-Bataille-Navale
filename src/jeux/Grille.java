@@ -1,5 +1,9 @@
 package jeux;
 
+import Bateaux;
+import utils.Player;
+import java.util.List;
+
 public class Grille {
 
     /**
@@ -13,15 +17,68 @@ public class Grille {
      */
     private int horizontal;
 
+
+    /**
+     * Le player linker a la grille.
+     *
+     * @since 1.0
+     */
+    private Player player;
+
+
+    /**
+     * La liste des bateaux.
+     *
+     * @since 1.0
+     */
+    private List<Bateaux> listBateaux;
+
     /**
      * Le parametre permetant de relier je jeux avec la grille
      */
     private Jeux jeux;
 
-    public Grille(int verticale, int horizontal, Jeux jeux) {
+    public Grille(int verticale, int horizontal, Jeux jeux, Player p) {
         this.verticale = verticale;
         this.horizontal = horizontal;
         this.jeux = jeux;
+        this.player = p;
+    }
+
+    /**
+     * @return La liste des bateaux.
+     * @since 1.0
+     */
+    public List<Bateaux> getListBateaux() {
+        return this.listBateaux;
+    }
+
+    /**
+     * Sets the <code>listBateaux</code> field.
+     *
+     * @param listBateaux La liste des bateaux.
+     * @since 1.0
+     */
+    public void setListBateaux(List<Bateaux> listBateaux) {
+        this.listBateaux = listBateaux;
+    }
+
+    /**
+     * @return Le player linker a la grille.
+     * @since 1.0
+     */
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    /**
+     * Sets the <code>player</code> field.
+     *
+     * @param player Le player linker a la grille.
+     * @since 1.0
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     /**
@@ -31,14 +88,6 @@ public class Grille {
         return this.verticale;
     }
 
-    /**
-     * Sets the <code>verticale</code> field.
-     *
-     * @param verticale Nombre de case verticale.
-     */
-    public void setVerticale(int verticale) {
-        this.verticale = verticale;
-    }
 
     /**
      * @return L'attribut horizontale.
@@ -47,35 +96,24 @@ public class Grille {
         return this.horizontal;
     }
 
-    /**
-     * Sets the <code>horizontal</code> field.
-     *
-     * @param horizontal L'attribut horizontale.
-     */
-    public void setHorizontal(int horizontal) {
-        this.horizontal = horizontal;
+    public boolean placeValide(Place pl) {
+
     }
+
 
     private String consolForamt() {
         char[]        alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb    = new StringBuilder("   ");
-        int           t     = horizontal, sL = -1;
+        int           t     = horizontal;
         for (int i = 0; i < t; i++) {
-            if (i > 25) {
-                t -= 25;
-                i = 0;
-                sL++;
-            }
-            if (sL != -1) {
-                sb.append(alpha[sL]);
-            }
             sb.append(alpha[i]).append(" ");
         }
         sb.append("\n");
         for (int i = 1; i < verticale + 1; i++) {
             sb.append(i < 10 ? "0" + i : i);
+            sb.append(" ");
             for (int j = 0; j < horizontal; j++) {
-                sb.append(jeux.getPlace(i, j) == null ? " x" : jeux.getPlace(i, j));
+                sb.append("x ");
             }
             sb.append("\n");
         }
