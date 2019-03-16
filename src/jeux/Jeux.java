@@ -6,6 +6,7 @@ import exception.BateauxStartPointInvalide;
 import exception.GrilleNonCreeException;
 import utils.Player;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,11 +44,11 @@ public class Jeux {
 
     public void lancerPartie() throws GrilleNonCreeException {
         ajouterBateaux();
+        System.out.println(listPlayer.get(0).getGrille());
     }
 
     private void ajouterBateaux() throws GrilleNonCreeException {
-        Scanner sc = new Scanner(System.in);
-        String  s;
+        String s;
         for (Player p : getListPlayer()) {
             List<Bateaux> bl = new ArrayList<>();
             if (p.getGrille() == null) {
@@ -57,6 +58,7 @@ public class Jeux {
             System.out.println(g);
             Bateaux p1, p2, p3, p4, p5;
             while (true) {
+                Scanner sc = new Scanner(System.in);
                 try {
                     System.out.println("Ajouter le bateux de 5 de Longeur ex: A6");
                     s = sc.nextLine();
@@ -66,12 +68,13 @@ public class Jeux {
                     p5 = new ContreTorpilleur(pl, this, p, b);
                     break;
                 }
-                catch (BateauxStartPointInvalide | BateauxMembreInvalide e) {
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide | InputMismatchException e) {
                     System.err.println("Erreur, merci de recommencer : " + e.getMessage());
                 }
             }
             bl.add(p5);
             while (true) {
+                Scanner sc = new Scanner(System.in);
                 try {
                     System.out.println("Ajouter le bateux de 4 de Longeur ex: A6");
                     s = sc.nextLine();
@@ -81,13 +84,14 @@ public class Jeux {
                     p4 = new PorteAvion(pl, this, p, b);
                     break;
                 }
-                catch (BateauxStartPointInvalide | BateauxMembreInvalide e) {
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide | InputMismatchException e) {
                     System.err.println("Erreur, merci de recommencer : " + e.getMessage());
                 }
 
             }
             bl.add(p4);
             while (true) {
+                Scanner sc = new Scanner(System.in);
                 try {
                     System.out.println("Ajouter le bateux de 3 de Longeur ex: A6");
                     s = sc.nextLine();
@@ -97,13 +101,14 @@ public class Jeux {
                     p3 = new SousMarin(pl, this, p, b);
                     break;
                 }
-                catch (BateauxStartPointInvalide | BateauxMembreInvalide e) {
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide | InputMismatchException e) {
                     System.err.println("Erreur, merci de recommencer : " + e.getMessage());
                 }
 
             }
             bl.add(p3);
             while (true) {
+                Scanner sc = new Scanner(System.in);
                 try {
                     System.out.println("Ajouter le bateux de 2 de Longeur ex: A6");
                     s = sc.nextLine();
@@ -113,13 +118,14 @@ public class Jeux {
                     p2 = new Torpilleur(pl, this, p, b);
                     break;
                 }
-                catch (BateauxStartPointInvalide | BateauxMembreInvalide e) {
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide | InputMismatchException e) {
                     System.err.println("Erreur, merci de recommencer : " + e.getMessage());
                 }
 
             }
             bl.add(p2);
             while (true) {
+                Scanner sc = new Scanner(System.in);
                 try {
                     System.out.println("Ajouter le bateux de 1 de Longeur ex: A6");
                     s = sc.nextLine();
@@ -129,7 +135,7 @@ public class Jeux {
                     p1 = new Croiseur(pl, this, p, b);
                     break;
                 }
-                catch (BateauxStartPointInvalide | BateauxMembreInvalide e) {
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide | InputMismatchException e) {
                     System.err.println("Erreur, merci de recommencer : " + e.getMessage());
                 }
 
@@ -156,6 +162,13 @@ public class Jeux {
             }
         }
         return needPlace;
+    }
+
+    @Override
+    public String toString() {
+        return "Jeux{" + "listPlayer=" + listPlayer
+               + ", modeDeJeux=" + modeDeJeux
+               + '}';
     }
 }
 

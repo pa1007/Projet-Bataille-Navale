@@ -2,6 +2,7 @@ package jeux;
 
 import bateaux.Bateaux;
 import utils.Player;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Grille {
@@ -33,16 +34,43 @@ public class Grille {
      */
     private List<Bateaux> listBateaux;
 
+
+    /**
+     * Liste des tires effectuer.
+     *
+     * @since 1.0
+     */
+    private List<Tire> tires;
     /**
      * Le parametre permetant de relier je jeux avec la grille
      */
-    private Jeux jeux;
+    private Jeux       jeux;
 
     public Grille(int verticale, int horizontal, Jeux jeux, Player p) {
         this.verticale = verticale;
         this.horizontal = horizontal;
         this.jeux = jeux;
         this.player = p;
+        tires = new ArrayList<>();
+        listBateaux = new ArrayList<>();
+    }
+
+    /**
+     * @return Liste des tires effectuer.
+     * @since 1.0
+     */
+    public List<Tire> getTires() {
+        return this.tires;
+    }
+
+    /**
+     * Sets the <code>tires</code> field.
+     *
+     * @param tires Liste des tires effectuer.
+     * @since 1.0
+     */
+    public void setTires(List<Tire> tires) {
+        this.tires = tires;
     }
 
     /**
@@ -100,7 +128,7 @@ public class Grille {
         if (!pl.is("A0")) {
             if (pl.getColumnNumber() <= horizontal && pl.getRow() <= verticale) {
                 for (Bateaux b : listBateaux) {
-                    if (b.getPlace().is(pl)) {
+                    if (b.getPlaces().contains(pl)) {
                         return false;
                     }
                 }
@@ -110,20 +138,29 @@ public class Grille {
         return false;
     }
 
-
-    private String consolForamt() {
-        char[]        alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        StringBuilder sb    = new StringBuilder("   ");
-        int           t     = horizontal;
-        for (int i = 0; i < t; i++) {
-            sb.append(alpha[i]).append(" ");
-        }
-        sb.append("\n");
+    public String consolBateauFormat() {
+        StringBuilder sb = new StringBuilder(getPremiereLigne());
         for (int i = 1; i < verticale + 1; i++) {
             sb.append(i < 10 ? "0" + i : i);
             sb.append(" ");
             for (int j = 0; j < horizontal; j++) {
-                sb.append("x ");
+                String  w     = "O";
+                boolean found = false;
+                for (Bateaux b : listBateaux) {
+                    List<Place> plist = b.getPlaces();
+                    for (Place p : plist) {
+                        if (p.getRow() == i && p.getColumnNumber() == j) {
+                            w = "B";
+                            found = true;
+                            break;
+                        }
+                        if (found) {
+                            break;
+                        }
+                    }
+                }
+                sb.append(w);
+                sb.append(" ");
             }
             sb.append("\n");
         }
@@ -131,8 +168,47 @@ public class Grille {
 
     }
 
+    public String consolTireFormat() {
+        StringBuilder sb = new StringBuilder(getPremiereLigne());
+        for (int i = 1; i <= verticale; i++) {
+            sb.append(i < 10 ? "0" + i : i);
+            sb.append(" ");
+            for (int j = 0; j < horizontal; j++) {
+                String w = "O";
+                for (Tire t : tires) {
+                    Place p = t.getPlace();
+                    if (p.getRow() == verticale && p.getColumnNumber() == j) {
+                        w = t.toString();
+                        break;
+                    }
+                }
+                sb.append(w);
+                sb.append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    private String getPremiereLigne() {
+        char[]        alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb    = new StringBuilder("   ");
+        int           t     = horizontal;
+        for (int i = 0; i < t; i++) {
+            sb.append(alpha[i]).append(" ");
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
+
     @Override
     public String toString() {
-        return consolForamt();
+        return "Grille{" + "verticale=" + verticale
+               + ", horizontal=" + horizontal
+               + ", player=" + player
+               + ", listBateaux=" + listBateaux
+               + ", tires=" + tires
+               + ", jeux=" + jeux
+               + '}';
     }
 }

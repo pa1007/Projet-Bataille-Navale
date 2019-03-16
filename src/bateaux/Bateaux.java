@@ -82,4 +82,18 @@ public abstract class Bateaux {
     public Player getPlayer() {
         return player;
     }
+
+    public int taille() {
+        return places.size();
+    }
+
+    @Override
+    public String toString() {
+        return "Bateaux{" + "places=" + places
+               + ", game=" + game
+               + ", player=" + player
+               + ", place=" + place
+               + ", orientation=" + orientation
+               + '}';
+    }
 }
