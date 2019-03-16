@@ -1,6 +1,6 @@
 package jeux;
 
-import Bateaux;
+import bateaux.Bateaux;
 import utils.Player;
 import java.util.List;
 

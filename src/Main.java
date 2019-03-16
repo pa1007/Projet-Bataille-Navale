@@ -10,19 +10,18 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws GrilleNonCreeException {
-
         menuInteractif();
     }
 
     /**
      * methode statique qui lance un menu interactif qui permet de choisir les différents mode de jeux
-     * et d'accéder aux paramètres
+     * et d'accéder aux paramètres du jeu
      */
     public static void menuInteractif() throws GrilleNonCreeException {
+        Scanner sc = new Scanner(System.in);
         int     choix;
         Player  p1 = new Player();
         Jeux    j;
-        Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenue dans la bataille navale :");
         System.out.println("1 : MonoJoeur");
         System.out.println("10: Quitter");
