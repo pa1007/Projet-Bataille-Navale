@@ -97,7 +97,17 @@ public class Grille {
     }
 
     public boolean placeValide(Place pl) {
-
+        if (!pl.is("A0")) {
+            if (pl.getColumnNumber() <= horizontal && pl.getRow() <= verticale) {
+                for (Bateaux b : listBateaux) {
+                    if (b.getPlace().is(pl)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
 

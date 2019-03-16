@@ -128,13 +128,32 @@ public class Place {
     }
 
     /**
+     * This method give you the current place with the moved of row and column add in parameters <br>
+     * The column is between "A" and "Z",
+     *
+     * @param row    the amount of row to move from
+     * @param column the amount of column to move from max 26
+     * @return a new place with the moved column and row or A0 if the place is outside the board
+     */
+    public Place more(int row, int column) {
+        int tempR = this.row + row;
+        int tempC = (int) this.column.toLowerCase().charAt(0) + column;
+        if (tempR < 1) {
+            return new Place("A0");
+        }
+        if (tempC > 122 || tempC < 97) {
+            return new Place("A0");
+        }
+        return new Place(String.valueOf(Character.valueOf((char) tempC)), tempR);
+    }
+
+    /**
      *
      */
     private void generatePlace() {
         column = String.valueOf(name.charAt(0));
         row = Integer.valueOf(name.replace(column, ""));
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -154,14 +173,6 @@ public class Place {
             return false;
         }
         return Objects.equals(column, place.column);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (column != null ? column.hashCode() : 0);
-        result = 31 * result + row;
-        return result;
     }
 
     /**

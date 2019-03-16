@@ -3,6 +3,7 @@ package bateaux;
 import jeux.Jeux;
 import jeux.Place;
 import utils.Player;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Bateaux {
@@ -23,8 +24,8 @@ public abstract class Bateaux {
      */
     protected boolean orientation;
 
-    public Bateaux(Place place, Jeux game, Player player, boolean orientation) {
-        this.place = place;
+    public Bateaux(Place[] place, Jeux game, Player player, boolean orientation) {
+        this.places = Arrays.asList(place);
         this.game = game;
         this.player = player;
         this.orientation = orientation;
