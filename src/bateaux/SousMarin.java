@@ -6,7 +6,7 @@ import utils.Player;
 
 public class SousMarin extends Bateaux {
 
-    public SousMarin(Place place, Jeux game, Player player, boolean orientation) {
+    public SousMarin(Place[] place, Jeux game, Player player, boolean orientation) {
         super(place, game, player, orientation);
     }
 }
