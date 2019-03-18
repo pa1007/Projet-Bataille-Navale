@@ -177,7 +177,7 @@ public class Grille {
                 String w = "O";
                 for (Tire t : tires) {
                     Place p = t.getPlace();
-                    if (p.getRow() == verticale && p.getColumnNumber() == j) {
+                    if (p.getRow() == i && p.getColumnNumber() == j) {
                         w = t.toString();
                         break;
                     }
