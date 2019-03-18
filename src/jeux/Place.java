@@ -151,8 +151,13 @@ public class Place {
      *
      */
     private void generatePlace() {
-        column = String.valueOf(name.charAt(0));
-        row = Integer.valueOf(name.replace(column, ""));
+        if (Character.isAlphabetic(name.toCharArray()[0])) {
+            column = String.valueOf(name.charAt(0));
+            row = Integer.valueOf(name.replace(column, ""));
+        }
+        else {
+            throw new RuntimeException("Premeiere valeur fause");
+        }
     }
 
     @Override

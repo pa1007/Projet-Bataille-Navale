@@ -10,18 +10,19 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws GrilleNonCreeException {
+
         menuInteractif();
     }
 
     /**
      * methode statique qui lance un menu interactif qui permet de choisir les différents mode de jeux
-     * et d'accéder aux paramètres du jeu
+     * et d'accéder aux paramètres
      */
     public static void menuInteractif() throws GrilleNonCreeException {
-        Scanner sc = new Scanner(System.in);
         int     choix;
         Player  p1 = new Player();
         Jeux    j;
+        Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenue dans la bataille navale :");
         System.out.println("1 : MonoJoeur");
         System.out.println("10: Quitter");
@@ -64,15 +65,5 @@ public class Main {
             p.setGrille(g);
         }
     }
-
-    /**
-     * methode statique qui nettoie la console pour une meilleure lisibilité
-     */
-    public static void clearScreen() {
-        for (int i = 0; i < 50; ++i) {
-            System.out.println();
-        }
-    }
-
 
 }

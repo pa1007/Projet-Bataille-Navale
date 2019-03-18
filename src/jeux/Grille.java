@@ -41,10 +41,11 @@ public class Grille {
      * @since 1.0
      */
     private List<Tire> tires;
+
     /**
      * Le parametre permetant de relier je jeux avec la grille
      */
-    private Jeux       jeux;
+    private Jeux jeux;
 
     public Grille(int verticale, int horizontal, Jeux jeux, Player p) {
         this.verticale = verticale;
@@ -125,17 +126,22 @@ public class Grille {
     }
 
     public boolean placeValide(Place pl) {
-        if (!pl.is("A0")) {
-            if (pl.getColumnNumber() <= horizontal && pl.getRow() <= verticale) {
-                for (Bateaux b : listBateaux) {
-                    if (b.getPlaces().contains(pl)) {
-                        return false;
-                    }
+        if (inBound(pl)) {
+            for (Bateaux b : listBateaux) {
+                if (b.getPlaces().contains(pl)) {
+                    return false;
                 }
-                return true;
             }
+            return true;
         }
         return false;
+    }
+
+    public boolean inBound(Place pl) {
+        return !pl.is("A0")
+               && pl.getColumnNumber() <= horizontal - 1
+               && pl.getRow() <= verticale
+               && pl.getColumnNumber() >= 0 && pl.getRow() > 0;
     }
 
     public String consolBateauFormat() {
@@ -150,7 +156,7 @@ public class Grille {
                     List<Place> plist = b.getPlaces();
                     for (Place p : plist) {
                         if (p.getRow() == i && p.getColumnNumber() == j) {
-                            w = "B";
+                            w = b.getLetter();
                             found = true;
                             break;
                         }
@@ -188,6 +194,10 @@ public class Grille {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public void addNewTire(Tire tire) {
+        tires.add(tire);
     }
 
     private String getPremiereLigne() {

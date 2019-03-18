@@ -3,10 +3,13 @@ package bateaux;
 import jeux.Jeux;
 import jeux.Place;
 import utils.Player;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class Bateaux {
+
+    protected List<Place> touchedPlace;
 
     protected List<Place> places;
 
@@ -29,6 +32,7 @@ public abstract class Bateaux {
         this.game = game;
         this.player = player;
         this.orientation = orientation;
+        touchedPlace = new ArrayList<>();
     }
 
     /**
@@ -83,6 +87,26 @@ public abstract class Bateaux {
         return player;
     }
 
+    public void toucher(Place place) {
+        touchedPlace.add(place);
+    }
+
+    public int nbToucher() {
+        return touchedPlace.size();
+    }
+
+    public double getPurcentDamage() {
+        return ((double) nbToucher()) / taille();
+    }
+
+    public boolean dead() {
+        return getPurcentDamage() == 1;
+    }
+
+    public String getLetter() {
+        return dead() ? "฿" : "B";
+    }
+
     public int taille() {
         return places.size();
     }
@@ -92,7 +116,7 @@ public abstract class Bateaux {
         return "Bateaux{" + "places=" + places
                + ", game=" + game
                + ", player=" + player
-               + ", place=" + place
+               + ", ListTire=" + touchedPlace
                + ", orientation=" + orientation
                + '}';
     }
