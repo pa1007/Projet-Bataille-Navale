@@ -1,8 +1,9 @@
 package utils;
 
 import jeux.Grille;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable {
 
     /**
      * Si le joueur est une IA.
@@ -62,5 +63,12 @@ public class Player {
      */
     public void setAI(boolean AI) {
         this.AI = AI;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" + "AI=" + AI
+               + ", grille=" + grille
+               + '}';
     }
 }

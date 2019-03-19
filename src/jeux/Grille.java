@@ -2,10 +2,11 @@ package jeux;
 
 import bateaux.Bateaux;
 import utils.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grille {
+public class Grille implements Serializable {
 
     /**
      * Nombre de case verticale.
@@ -215,10 +216,8 @@ public class Grille {
     public String toString() {
         return "Grille{" + "verticale=" + verticale
                + ", horizontal=" + horizontal
-               + ", player=" + player
                + ", listBateaux=" + listBateaux
                + ", tires=" + tires
-               + ", jeux=" + jeux
                + '}';
     }
 }

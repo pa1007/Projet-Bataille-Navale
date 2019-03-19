@@ -6,11 +6,14 @@ import exception.BateauxStartPointInvalide;
 import exception.GrilleNonCreeException;
 import exception.PlacementInvalid;
 import utils.Player;
+import utils.SavedObject;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Jeux {
+public class Jeux implements Serializable {
 
 
     /**
@@ -42,13 +45,18 @@ public class Jeux {
         return modeDeJeux;
     }
 
-    public void lancerPartie() throws GrilleNonCreeException {
-        ajouterBateaux();
+    public void reprendrePartie() {
         System.out.println(listPlayer.get(0).getGrille().consolBateauFormat());
         Scanner sc = new Scanner(System.in);
         while (true) {
             Jeux.clearScreen();
             System.out.println(listPlayer.get(0).getGrille().consolTireFormat());
+            try {
+                new SavedObject(this).save();
+            }
+            catch (IOException e) {
+                System.out.println("Erreur la sauvegarde");
+            }
             System.out.println("Donnez une case pour tirer (Ex : A6)  ou dite STOP pour arreter !");
             String s = sc.nextLine();
             if (s.equalsIgnoreCase("Stop")) {
@@ -81,6 +89,11 @@ public class Jeux {
                 }
             }
         }
+    }
+
+    public void lancerPartie() throws GrilleNonCreeException {
+        ajouterBateaux();
+        reprendrePartie();
     }
 
     public boolean tire(Place place, Player p) throws PlacementInvalid {

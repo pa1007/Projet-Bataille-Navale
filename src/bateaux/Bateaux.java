@@ -3,11 +3,12 @@ package bateaux;
 import jeux.Jeux;
 import jeux.Place;
 import utils.Player;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Bateaux {
+public abstract class Bateaux implements Serializable {
 
     protected List<Place> touchedPlace;
 
@@ -114,8 +115,6 @@ public abstract class Bateaux {
     @Override
     public String toString() {
         return "Bateaux{" + "places=" + places
-               + ", game=" + game
-               + ", player=" + player
                + ", ListTire=" + touchedPlace
                + ", orientation=" + orientation
                + '}';

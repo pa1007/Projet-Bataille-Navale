@@ -1,6 +1,8 @@
 package jeux;
 
-public class Tire {
+import java.io.Serializable;
+
+public class Tire implements Serializable {
 
 
     /**

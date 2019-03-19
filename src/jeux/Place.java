@@ -1,8 +1,9 @@
 package jeux;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Place {
+public class Place implements Serializable {
 
 
     /**

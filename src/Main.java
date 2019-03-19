@@ -1,15 +1,18 @@
 import exception.GrilleNonCreeException;
+import exception.LoadSaveException;
 import jeux.Grille;
 import jeux.Jeux;
 import jeux.ModeDeJeux;
 import utils.Player;
+import utils.SavedObject;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws GrilleNonCreeException {
+    public static void main(String[] args) throws GrilleNonCreeException, IOException, LoadSaveException {
 
         menuInteractif();
     }
@@ -18,14 +21,16 @@ public class Main {
      * methode statique qui lance un menu interactif qui permet de choisir les différents mode de jeux
      * et d'accéder aux paramètres
      */
-    public static void menuInteractif() throws GrilleNonCreeException {
+    public static void menuInteractif() throws GrilleNonCreeException, IOException, LoadSaveException {
         int     choix;
         Player  p1 = new Player();
         Jeux    j;
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenue dans la bataille navale :");
         System.out.println("1 : MonoJoeur");
-        System.out.println("10: Quitter");
+        System.out.println("10 : Reprendre la derniere partie from savedFile");
+        System.out.println("11 : Reprendre la derniere partie from un autre fichier");
+        System.out.println("100 : Quitter");
         choix = sc.nextInt();
 
         switch (choix) {
@@ -36,7 +41,14 @@ public class Main {
                 modifTailleGrille(j);
                 j.lancerPartie();
                 break;
+            case 11:
+                System.out.println("Le path de la sauvegarde :");
+                SavedObject.changePath(sc.nextLine());
             case 10:
+                SavedObject o = SavedObject.load();
+                o.getJeux().reprendrePartie();
+                break;
+            case 100:
                 System.exit(0);
 
         }
