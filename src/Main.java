@@ -28,11 +28,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenue dans la bataille navale :");
         System.out.println("1 : MonoJoeur");
+        System.out.println("9 : Changer le path de sauvegarde (A garder pour retrouver les sauvegaedes )");
         System.out.println("10 : Reprendre la derniere partie from savedFile");
         System.out.println("11 : Reprendre la derniere partie from un autre fichier");
         System.out.println("100 : Quitter");
         choix = sc.nextInt();
-
+        sc.nextLine();
         switch (choix) {
             case 1:
                 List<Player> pL = new ArrayList<>();
@@ -40,6 +41,11 @@ public class Main {
                 j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
                 modifTailleGrille(j);
                 j.lancerPartie();
+                break;
+            case 9:
+                System.out.println("Le path de la sauvegarde :");
+                SavedObject.changePath(sc.nextLine());
+                menuInteractif();
                 break;
             case 11:
                 System.out.println("Le path de la sauvegarde :");
