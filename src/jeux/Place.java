@@ -40,7 +40,12 @@ public class Place implements Serializable {
     }
 
     public Place(int verticale, int horizontal) {
-
+        if (verticale > 0 && horizontal > 0 && verticale < 26) {
+            char[] alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+            column = String.valueOf(alpha[verticale - 1]).toUpperCase();
+            row = horizontal;
+            this.name = column + this.row;
+        }
     }
 
     /**
