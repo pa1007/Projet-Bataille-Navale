@@ -79,7 +79,15 @@ public class Jeux implements Serializable {
         }
     }
 
+    public void lancerPartieGraph(GraphicMain graphicMain) throws GrilleNonCreeException {
+        ajouterBateaux();
+        while (true) {
+            for (Player p : listPlayer) {
+                p.play(this);
+            }
+        }
 
+    }
 
     public Place[] checkPlace(String s, Grille g, int tailleBat, boolean b)
     throws BateauxStartPointInvalide, BateauxMembreInvalide {
