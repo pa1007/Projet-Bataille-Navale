@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GraphicPlayer extends Player implements Serializable {
 
@@ -94,6 +95,28 @@ public class GraphicPlayer extends Player implements Serializable {
         ) : " Dans l'eau ");
     }
 
+    public void obstruerCase(Jeux jeux) {
+        graphicMain.setMessage("Selectioner les cases a Obstuer ou continuer");
+        AtomicBoolean end = new AtomicBoolean(false);
+        graphicMain.setButtonAction("Continuer", e -> {
+            end.set(true);
+            GraphicPlayer.setWait(false);
+        });
+        while (!end.get()) {
+            listener = new MousePlacementCaseListener(this);
+            curentPlace = null;
+            wait = true;
+            placerAllCase();
+            while (wait) {
+            }
+            removePlaceListener();
+            if (curentPlace != null) {
+                map.get(curentPlace.getRow()).get(curentPlace.getColumnNumber()).setObstrue();
+                jeux.addPlaceObstue(curentPlace);
+            }
+        }
+    }
+
     public Place getCurentPlace() {
         return curentPlace;
     }
@@ -138,7 +161,7 @@ public class GraphicPlayer extends Player implements Serializable {
         placerPlaceTireListener();
         while (wait) {
         }
-        removePlaceTireListener();
+        removePlaceListener();
         return curentPlace;
     }
 
@@ -176,19 +199,15 @@ public class GraphicPlayer extends Player implements Serializable {
     private void removePlaceListener() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
-                if (gc.getB() == null) {
-                    gc.removeMouseListener(listener);
-                }
+                gc.removeMouseListener(listener);
             }
         }
     }
 
-    private void removePlaceTireListener() {
+    private void placerAllCase() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
-                if (gc.getTire() == null) {
-                    gc.removeMouseListener(listener);
-                }
+                gc.addMouseListener(listener);
             }
         }
     }
@@ -196,7 +215,7 @@ public class GraphicPlayer extends Player implements Serializable {
     private void placerPlaceListener() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
-                if (gc.getB() == null) {
+                if (gc.getB() == null && !gc.isObstue()) {
                     gc.addMouseListener(listener);
                 }
             }
@@ -206,7 +225,7 @@ public class GraphicPlayer extends Player implements Serializable {
     private void placerPlaceTireListener() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
-                if (gc.getTire() == null) {
+                if (gc.getTire() == null && !gc.isObstue()) {
                     gc.addMouseListener(listener);
                 }
             }
