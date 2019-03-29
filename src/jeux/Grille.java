@@ -128,12 +128,14 @@ public class Grille implements Serializable {
 
     public boolean placeValide(Place pl) {
         if (inBound(pl)) {
-            for (Bateaux b : listBateaux) {
-                if (b.getPlaces().contains(pl)) {
-                    return false;
+            if (!obstuer(pl)) {
+                for (Bateaux b : listBateaux) {
+                    if (b.getPlaces().contains(pl)) {
+                        return false;
+                    }
                 }
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -153,19 +155,27 @@ public class Grille implements Serializable {
             for (int j = 0; j < horizontal; j++) {
                 String  w     = "O";
                 boolean found = false;
+                for (Place p : jeux.getObstrue()) {
+                    if (p.getRow() == i && p.getColumnNumber() == j) {
+                        w = "p";
+                        found = true;
+                        break;
+                    }
+                }
                 for (Bateaux b : listBateaux) {
                     List<Place> plist = b.getPlaces();
                     for (Place p : plist) {
+                        if (found) {
+                            break;
+                        }
                         if (p.getRow() == i && p.getColumnNumber() == j) {
                             w = b.getLetter();
                             found = true;
                             break;
                         }
-                        if (found) {
-                            break;
-                        }
                     }
                 }
+
                 sb.append(w);
                 sb.append(" ");
             }
@@ -182,11 +192,16 @@ public class Grille implements Serializable {
             sb.append(" ");
             for (int j = 0; j < horizontal; j++) {
                 String w = "O";
-                for (Tire t : tires) {
-                    Place p = t.getPlace();
-                    if (p.getRow() == i && p.getColumnNumber() == j) {
-                        w = t.toString();
-                        break;
+                if (jeux.getObstrue().contains(new Place(j, i))) {
+                    w = "p";
+                }
+                else {
+                    for (Tire t : tires) {
+                        Place p = t.getPlace();
+                        if (p.getRow() == i && p.getColumnNumber() == j) {
+                            w = t.toString();
+                            break;
+                        }
                     }
                 }
                 sb.append(w);
@@ -199,6 +214,10 @@ public class Grille implements Serializable {
 
     public void addNewTire(Tire tire) {
         tires.add(tire);
+    }
+
+    private boolean obstuer(Place pl) {
+        return jeux.getObstrue().contains(pl);
     }
 
     private String getPremiereLigne() {
