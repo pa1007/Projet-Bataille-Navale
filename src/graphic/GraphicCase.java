@@ -14,6 +14,8 @@ public class GraphicCase extends JPanel implements Serializable {
 
     private int lastStateDraw;
 
+    private boolean obstrue;
+
     private Bateaux b;
 
     private Tire tire;
@@ -35,12 +37,17 @@ public class GraphicCase extends JPanel implements Serializable {
         place = new Place(i, j);
         this.graphicMain = graphicMain;
         this.addMouseListener(new MouseCaseListener());
+        obstrue = false;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawLastState(g);
+    }
+
+    public void setObstrue() {
+        obstrue = true;
     }
 
     public void drawTire(Graphics g) {
@@ -87,10 +94,14 @@ public class GraphicCase extends JPanel implements Serializable {
         return place;
     }
 
-    public void drawEmptyState(Graphics g) {
+    private void drawEmptyState(Graphics g) {
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, getWidth(), getHeight());
         drawEdge(g);
+        if (obstrue) {
+            g.setColor(Color.WHITE);
+            g.fillOval(0, 0, getWidth(), getHeight());
+        }
     }
 
     public void drawLastState(Graphics g) {
@@ -121,6 +132,10 @@ public class GraphicCase extends JPanel implements Serializable {
 
     public void setTire(Tire tire) {
         this.tire = tire;
+    }
+
+    public boolean isObstue() {
+        return obstrue;
     }
 
     private void drawEdge(Graphics g) {
