@@ -8,24 +8,40 @@ import exception.PlacementInvalid;
 import graphic.GraphicMain;
 import utils.Player;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Jeux implements Serializable {
 
 
     /**
+     * Les places obstruer.
+     */
+    private List<Place>  obstrue;
+    /**
      * Liste des players en jeux.
      */
     private List<Player> listPlayer;
-
     /**
      * Le mode de jeux.
      */
-    private int modeDeJeux;
+    private int          modeDeJeux;
 
     public Jeux(int modeDeJeux, List<Player> listPlayer) {
         this.modeDeJeux = modeDeJeux;
         this.listPlayer = listPlayer;
+        this.obstrue = new ArrayList<>();
+    }
+
+    /**
+     * @return Les places obstruer.
+     */
+    public List<Place> getObstrue() {
+        return this.obstrue;
+    }
+
+    public void addPlaceObstue(Place p) {
+        obstrue.add(p);
     }
 
     /**
@@ -49,6 +65,7 @@ public class Jeux implements Serializable {
     }
 
     public void lancerPartie() throws GrilleNonCreeException {
+        askObstuerCase();
         ajouterBateaux();
         reprendrePartie();
     }
@@ -80,6 +97,7 @@ public class Jeux implements Serializable {
     }
 
     public void lancerPartieGraph(GraphicMain graphicMain) throws GrilleNonCreeException {
+        askObstuerCase();
         ajouterBateaux();
         while (true) {
             for (Player p : listPlayer) {
@@ -108,7 +126,6 @@ public class Jeux implements Serializable {
         return needPlace;
     }
 
-
     private Bateaux bateauAt(Place p, Grille g) {
         if (g.inBound(p)) {
             for (Bateaux b : g.getListBateaux()) {
@@ -123,6 +140,12 @@ public class Jeux implements Serializable {
     private void ajouterBateaux() throws GrilleNonCreeException {
         for (Player p : getListPlayer()) {
             p.placerBateau(this);
+        }
+    }
+
+    private void askObstuerCase() throws GrilleNonCreeException {
+        for (Player p : getListPlayer()) {
+            p.obstruerCase(this);
         }
     }
 
