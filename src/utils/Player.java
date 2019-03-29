@@ -75,7 +75,6 @@ public class Player implements Serializable {
                 break;
             }
             catch (BateauxStartPointInvalide | BateauxMembreInvalide | RuntimeException e) {
-                e.printStackTrace();
                 System.err.println("Erreur, merci de recommencer : " + e.getMessage());
             }
         }
@@ -217,6 +216,35 @@ public class Player implements Serializable {
                     break;
                 }
             }
+        }
+    }
+
+    public void obstruerCase(Jeux jeux) throws GrilleNonCreeException {
+        if (grille != null) {
+            System.out.println(grille.consolBateauFormat());
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                System.out.println(
+                        "Choisisez la place que vous voulez obstuer (ex A6), dites STOP pour passer/coninuer !");
+                String s = scanner.nextLine();
+                if (s.equalsIgnoreCase("Stop")) {
+                    break;
+                }
+                else {
+                    try {
+                        Place pl = new Place(s);
+                        if (grille.placeValide(pl)) {
+                            jeux.addPlaceObstue(pl);
+                        }
+                    }
+                    catch (Exception e) {
+                        System.out.println("Place non valide, retenter");
+                    }
+                }
+            }
+        }
+        else {
+            throw new GrilleNonCreeException();
         }
     }
 
