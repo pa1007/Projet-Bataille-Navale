@@ -15,21 +15,25 @@ public class Tire implements Serializable {
      */
     private Place   place;
 
+    /**
+     * Constructeur de Tire.
+     * @param touche true si la place a ete touchee par un tire.
+     * @param place place a laquel le tire a ete lance.
+     */
     public Tire(boolean touche, Place place) {
         this.touche = touche;
         this.place = place;
     }
 
     /**
-     * @return Si le tire a toucher ou non.
+     * @return Si le tire a touche ou non.
      */
     public boolean isTouche() {
         return this.touche;
     }
 
     /**
-     * Initialise si le tire a <code>touche</code>
-     * 
+     * Initialise si le tire a <code>touche</code>.
      * @param touche Si le tire a toucher ou non.
      */
     public void setTouche(boolean touche) {
@@ -44,8 +48,7 @@ public class Tire implements Serializable {
     }
 
     /**
-     * Initialise la <code>place</code>
-     *
+     * Initialise la <code>place</code>.
      * @param place La place ou le tire a été effectuer.
      */
     public void setPlace(Place place) {

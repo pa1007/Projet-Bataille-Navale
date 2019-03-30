@@ -37,18 +37,17 @@ public class Grille implements Serializable {
     private List<Tire> tires;
 
     /**
-     * Le parametre permettant de relier je jeux avec la grille
+     * Le parametre permettant de relier je jeux avec la grille.
      */
     private Jeux jeux;
 
 
     /**
-     * Constructeur de la grille
-     * 
-     * @param verticale
-     * @param horizontal
-     * @param jeux
-     * @param p
+     * Constructeur de la grille.
+     * @param verticale taille de la grille sur l'axe y.
+     * @param horizontal taille de la grille sur l'axe x.
+     * @param jeux jeux dans lequel la grille se trouve.
+     * @param p player a qui appartient cette grille. 
      */
     public Grille(int verticale, int horizontal, Jeux jeux, Player p) {
         this.verticale = verticale;
@@ -68,7 +67,6 @@ public class Grille implements Serializable {
 
     /**
      * Initialise les <code>tires</code>.
-     *
      * @param tires Liste des tires effectuer.
      */
     public void setTires(List<Tire> tires) {
@@ -84,7 +82,6 @@ public class Grille implements Serializable {
 
     /**
      * Initialise la <code>listBateaux</code>.
-     *
      * @param listBateaux La liste des bateaux.
      */
     public void setListBateaux(List<Bateaux> listBateaux) {
@@ -100,7 +97,6 @@ public class Grille implements Serializable {
 
     /**
      * Initialise le <code>player</code>.
-     *
      * @param player Le player lie a la grille.
      */
     public void setPlayer(Player player) {
@@ -123,11 +119,9 @@ public class Grille implements Serializable {
     }
 
     /**
-     * Methode publique qui verifie si une place est valide
-     *  (pas de bateaux, pas d'iles, pas le bord de la grille).
-     * 
-     * @param pl
-     * @return boolean si la place est valide
+     * Methode publique qui verifie si une place est valide (pas de bateaux, pas d'iles, pas le bord de la grille).
+     * @param pl place a verifier.
+     * @return   boolean si la place est valide.
      */
     public boolean placeValide(Place pl) {
         if (inBound(pl)) {
@@ -145,9 +139,8 @@ public class Grille implements Serializable {
 
     /**
      * Methode qui teste si une place est valide dans la grille.
-     * 
-     * @param pl
-     * @return boolean, si la place est valide
+     * @param  pl place a verifier.
+     * @return boolean, si la place est valide.
      */
     public boolean inBound(Place pl) {
         return !pl.is("A0")
@@ -230,19 +223,17 @@ public class Grille implements Serializable {
     }
     
     /**
-     * Methode qui ajoute un nouveau tire a la grille
-     *  (remplace un grille.getTires().add(tire)).
-     * @param tire
+     * Methode qui ajoute un nouveau tire a la grille (<code>remplace un grille.getTires().add(tire)</code>).
+     * @param tire tire a ajouter a la grille.
      */
     public void addNewTire(Tire tire) {
         tires.add(tire);
     }
 
     /**
-     * Methode qui valide si la place est libre
-     *  (ile)
-     * @param pl
-     * @return
+     * Methode qui valide si la place est libre (ile).
+     * @param  pl place a obstruer.
+     * @return true si la place est obstruee, false sinon.
      */
     private boolean obstuer(Place pl) {
         return jeux.getObstrue().contains(pl);
@@ -250,7 +241,7 @@ public class Grille implements Serializable {
 
     /**
      * Methode qui renvoie la première ligne de la grille en console
-     * @return String 
+     * @return le premiere ligne de la grille.
      */
     private String getPremiereLigne() {
         char[]        alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
