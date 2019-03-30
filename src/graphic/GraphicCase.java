@@ -22,6 +22,7 @@ public class GraphicCase extends JPanel implements Serializable {
 
     private       Place       place;
     private final GraphicMain graphicMain;
+    private       Color       emptyStateColor = Color.CYAN;
 
     /**
      * Creates a new <code>JPanel</code> with a double buffer
@@ -48,11 +49,11 @@ public class GraphicCase extends JPanel implements Serializable {
 
     public void setObstrue() {
         obstrue = true;
+        repaint();
     }
 
     public void drawTire(Graphics g) {
         drawEmptyState(g);
-        System.out.println("draw");
         if (tire != null) {
             if (tire.isTouche()) {
                 drawBateau(g);
@@ -60,8 +61,8 @@ public class GraphicCase extends JPanel implements Serializable {
             g.setColor(Color.RED);
             g.drawLine(0, 0, getWidth(), getHeight());
             g.drawLine(getWidth(), 0, 0, getHeight());
-
         }
+
     }
 
     public void drawBateau(Graphics g) {
@@ -92,16 +93,6 @@ public class GraphicCase extends JPanel implements Serializable {
 
     public Place getPlace() {
         return place;
-    }
-
-    private void drawEmptyState(Graphics g) {
-        g.setColor(Color.CYAN);
-        g.fillRect(0, 0, getWidth(), getHeight());
-        drawEdge(g);
-        if (obstrue) {
-            g.setColor(Color.WHITE);
-            g.fillOval(0, 0, getWidth(), getHeight());
-        }
     }
 
     public void drawLastState(Graphics g) {
@@ -136,6 +127,20 @@ public class GraphicCase extends JPanel implements Serializable {
 
     public boolean isObstue() {
         return obstrue;
+    }
+
+    public void setEnemyFire() {
+        emptyStateColor = Color.BLUE;
+    }
+
+    private void drawEmptyState(Graphics g) {
+        g.setColor(emptyStateColor);
+        g.fillRect(0, 0, getWidth(), getHeight());
+        drawEdge(g);
+        if (obstrue) {
+            g.setColor(Color.WHITE);
+            g.fillOval(0, 0, getWidth(), getHeight());
+        }
     }
 
     private void drawEdge(Graphics g) {
