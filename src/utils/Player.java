@@ -18,26 +18,23 @@ public class Player implements Serializable {
 
     /**
      * Si le joueur est une IA.
-     *
-     * @since 1.0
      */
     protected boolean AI;
 
 
     /**
      * La grille du joueur.
-     *
-     * @since 1.0
      */
     protected Grille grille;
 
-
+    /**
+     * Constructeur de Player.
+     */
     public Player() {
     }
 
     /**
      * @return La grille du joueur.
-     * @since 1.0
      */
     public Grille getGrille() {
         return this.grille;
@@ -47,13 +44,18 @@ public class Player implements Serializable {
      * Sets the <code>grille</code> field.
      *
      * @param grille La grille du joueur.
-     * @since 1.0
+     
      */
     public void setGrille(Grille grille) {
         this.grille = grille;
     }
 
 
+    /**
+     * Methode qui permet de placer un bateau dans un jeux.
+     * @param j jeux sur lequel placer le bateau.
+     * @throws GrilleNonCreeException si la grille n'a pas pu etre cree.
+     */
     public void placerBateau(Jeux j) throws GrilleNonCreeException {
         String        s;
         Scanner       sc = new Scanner(System.in);
@@ -157,22 +159,23 @@ public class Player implements Serializable {
 
     /**
      * @return Si le joueur est une IA.
-     * @since 1.0
      */
     public boolean getAI() {
         return this.AI;
     }
 
     /**
-     * Sets the <code>ai</code> field.
-     *
+     * Initialise le <code>ai</code>.
      * @param AI Si le joueur est une IA.
-     * @since 1.0
      */
     public void setAI(boolean AI) {
         this.AI = AI;
     }
 
+    /**
+     * Methode qui permet de lancer le jeux, et de le sauvegarder.
+     * @param jeux jeux a lancer.
+     */
     public void play(Jeux jeux) {
         System.out.println(getGrille().consolBateauFormat());
         Scanner sc = new Scanner(System.in);
@@ -219,6 +222,11 @@ public class Player implements Serializable {
         }
     }
 
+    /**
+     * Methode qui permet d'obstruer un case (ile).
+     * @param jeux jeux auxquel ajouter un cas obstrue.
+     * @throws GrilleNonCreeException si la grille n'a pas pu etre cree.
+     */
     public void obstruerCase(Jeux jeux) throws GrilleNonCreeException {
         if (grille != null) {
             System.out.println(grille.consolBateauFormat());
