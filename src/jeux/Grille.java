@@ -9,45 +9,47 @@ import java.util.List;
 public class Grille implements Serializable {
 
     /**
-     * Nombre de case verticale.
+     * Nombre de cases verticales.
      */
     private int verticale;
+
     /**
-     * L'attribut horizontale.
-     *
-     * @since 1.0
+     * Nombre de cases horizontales.
      */
     private int horizontal;
 
 
     /**
-     * Le player linker a la grille.
-     *
-     * @since 1.0
+     * Le player lie a la grille.
      */
     private Player player;
 
 
     /**
      * La liste des bateaux.
-     *
-     * @since 1.0
      */
     private List<Bateaux> listBateaux;
 
 
     /**
      * Liste des tires effectuer.
-     *
-     * @since 1.0
      */
     private List<Tire> tires;
 
     /**
-     * Le parametre permetant de relier je jeux avec la grille
+     * Le parametre permettant de relier je jeux avec la grille
      */
     private Jeux jeux;
 
+
+    /**
+     * Constructeur de la grille
+     * 
+     * @param verticale
+     * @param horizontal
+     * @param jeux
+     * @param p
+     */
     public Grille(int verticale, int horizontal, Jeux jeux, Player p) {
         this.verticale = verticale;
         this.horizontal = horizontal;
@@ -58,18 +60,16 @@ public class Grille implements Serializable {
     }
 
     /**
-     * @return Liste des tires effectuer.
-     * @since 1.0
+     * @return Liste des tires effectues.
      */
     public List<Tire> getTires() {
         return this.tires;
     }
 
     /**
-     * Sets the <code>tires</code> field.
+     * Initialise les <code>tires</code>.
      *
      * @param tires Liste des tires effectuer.
-     * @since 1.0
      */
     public void setTires(List<Tire> tires) {
         this.tires = tires;
@@ -77,42 +77,38 @@ public class Grille implements Serializable {
 
     /**
      * @return La liste des bateaux.
-     * @since 1.0
      */
     public List<Bateaux> getListBateaux() {
         return this.listBateaux;
     }
 
     /**
-     * Sets the <code>listBateaux</code> field.
+     * Initialise la <code>listBateaux</code>.
      *
      * @param listBateaux La liste des bateaux.
-     * @since 1.0
      */
     public void setListBateaux(List<Bateaux> listBateaux) {
         this.listBateaux = listBateaux;
     }
 
     /**
-     * @return Le player linker a la grille.
-     * @since 1.0
+     * @return Le player lie a la grille.
      */
     public Player getPlayer() {
         return this.player;
     }
 
     /**
-     * Sets the <code>player</code> field.
+     * Initialise le <code>player</code>.
      *
-     * @param player Le player linker a la grille.
-     * @since 1.0
+     * @param player Le player lie a la grille.
      */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
     /**
-     * @return Nombre de case verticale.
+     * @return Nombre de cases verticales.
      */
     public int getVerticale() {
         return this.verticale;
@@ -120,12 +116,19 @@ public class Grille implements Serializable {
 
 
     /**
-     * @return L'attribut horizontale.
+     * @return Nombre de cases horizontales.
      */
     public int getHorizontal() {
         return this.horizontal;
     }
 
+    /**
+     * Methode publique qui verifie si une place est valide
+     *  (pas de bateaux, pas d'iles, pas le bord de la grille).
+     * 
+     * @param pl
+     * @return boolean si la place est valide
+     */
     public boolean placeValide(Place pl) {
         if (inBound(pl)) {
             if (!obstuer(pl)) {
@@ -140,6 +143,12 @@ public class Grille implements Serializable {
         return false;
     }
 
+    /**
+     * Methode qui teste si une place est valide dans la grille.
+     * 
+     * @param pl
+     * @return boolean, si la place est valide
+     */
     public boolean inBound(Place pl) {
         return !pl.is("A0")
                && pl.getColumnNumber() <= horizontal - 1
@@ -147,6 +156,10 @@ public class Grille implements Serializable {
                && pl.getColumnNumber() >= 0 && pl.getRow() > 0;
     }
 
+    /**
+     * Methode qui formate l'affichage des bateaux dans la console.
+     * @return String
+    */
     public String consolBateauFormat() {
         StringBuilder sb = new StringBuilder(getPremiereLigne());
         for (int i = 1; i < verticale + 1; i++) {
@@ -185,6 +198,10 @@ public class Grille implements Serializable {
 
     }
 
+    /**
+     * Methode qui formate l'affichage des tires dans la console.
+     * @return String
+     */
     public String consolTireFormat() {
         StringBuilder sb = new StringBuilder(getPremiereLigne());
         for (int i = 1; i <= verticale; i++) {
@@ -211,15 +228,30 @@ public class Grille implements Serializable {
         }
         return sb.toString();
     }
-
+    
+    /**
+     * Methode qui ajoute un nouveau tire a la grille
+     *  (remplace un grille.getTires().add(tire)).
+     * @param tire
+     */
     public void addNewTire(Tire tire) {
         tires.add(tire);
     }
 
+    /**
+     * Methode qui valide si la place est libre
+     *  (ile)
+     * @param pl
+     * @return
+     */
     private boolean obstuer(Place pl) {
         return jeux.getObstrue().contains(pl);
     }
 
+    /**
+     * Methode qui renvoie la première ligne de la grille en console
+     * @return String 
+     */
     private String getPremiereLigne() {
         char[]        alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb    = new StringBuilder("   ");
