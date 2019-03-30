@@ -5,6 +5,7 @@ import exception.BateauxMembreInvalide;
 import exception.BateauxStartPointInvalide;
 import exception.GrilleNonCreeException;
 import graphic.listener.MousePlacementCaseListener;
+import jeux.Grille;
 import jeux.Jeux;
 import jeux.Place;
 import jeux.Tire;
@@ -20,17 +21,50 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GraphicPlayer extends Player implements Serializable {
 
-    private static volatile boolean                         wait;
-    private                 Map<Integer, List<GraphicCase>> map;
-    private                 Place                           curentPlace;
-    private                 MousePlacementCaseListener      listener;
-    private final           GraphicMain                     graphicMain;
+    /**
+     * Le boolean en volatile (Permet de linker differents thread java (Cf javadoc principal, site oracle) <br>
+     * Utilisation obligatoire dans notre cas, permet de linker le program a des listener sur das JPanel
+     */
+    private static volatile boolean wait;
 
+    /**
+     * La table princiaple
+     */
+    private Map<Integer, List<GraphicCase>> map;
+
+    /**
+     * La place courrante en cas de demande par listener
+     */
+    private Place curentPlace;
+
+    /**
+     * Le listener a ajouter, change a chaque ajout
+     */
+    private MousePlacementCaseListener listener;
+
+    /**
+     * La classe main , finak pour ne pas pouvoir la changer
+     */
+    private final GraphicMain graphicMain;
+
+    /**
+     * Le constructeur principal
+     *
+     * @param map         Table pour chaque ligne et ranger
+     * @param graphicMain instance de la classe princiaple pour le graphique
+     */
     public GraphicPlayer(Map<Integer, List<GraphicCase>> map, GraphicMain graphicMain) {
         this.graphicMain = graphicMain;
         this.map = map;
     }
 
+    /**
+     * {@inheritDoc}
+     * Method graphique <br>
+     *
+     * @param j le jeux
+     * @throws GrilleNonCreeException throw si la grille est null
+     */
     @Override
     public void placerBateau(Jeux j) throws GrilleNonCreeException {
         if (grille != null) {
@@ -65,6 +99,12 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * Methode graphique <br>
+     *
+     * @param jeux le jeu
+     */
     @Override
     public void play(Jeux jeux) {
         changeDrawState(1);
@@ -95,6 +135,13 @@ public class GraphicPlayer extends Player implements Serializable {
         ) : " Dans l'eau ");
     }
 
+    /**
+     * {@inheritDoc}
+     * Method graphic <br>
+     * Utilisation d'un AtomicBoolean pour ceci, permet l'utilisation d'un labda (->) et d'un boolean simple (Remplacable par une variable static)
+     *
+     * @param jeux le jeux
+     */
     public void obstruerCase(Jeux jeux) {
         graphicMain.setMessage("Selectioner les cases a Obstuer ou continuer");
         AtomicBoolean end = new AtomicBoolean(false);
@@ -117,14 +164,22 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
-    public Place getCurentPlace() {
-        return curentPlace;
-    }
-
+    /**
+     * Permet d'ajouter le place dans la variable
+     *
+     * @param curentPlace la place pris
+     */
     public void setCurentPlace(Place curentPlace) {
         this.curentPlace = curentPlace;
     }
 
+    /**
+     * Permet de placer les listener pour les bateaux, avec la method {@link #placerPlaceListener()} <br>
+     * la methode attent l'input user, avec la variable <code>wait</code> ajout la place dans <code>this.curentPlace</code>
+     *
+     * @param message le message a afficher
+     * @return la place selectionner, (stocker dans curentPlace aussi )
+     */
     public Place getUserBoatInput(String message) {
         listener = new MousePlacementCaseListener(this);
         curentPlace = null;
@@ -138,6 +193,11 @@ public class GraphicPlayer extends Player implements Serializable {
         return curentPlace;
     }
 
+    /**
+     * Permet de changer la state de tous les bateaux
+     *
+     * @param state la state a metre, compris entre 0 et 2
+     */
     public void changeDrawState(int state) {
         if (state < 3 && state > -1) {
             for (List<GraphicCase> gcl : map.values()) {
@@ -149,11 +209,21 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * Permet de save et exit en même temp
+     *
+     * @param jeux le jeux
+     * @throws IOException exception throw par save
+     * @see SavedObject#save()
+     */
     private void saveAndExit(Jeux jeux) throws IOException {
         new SavedObject(jeux).save();
         System.exit(0);
     }
 
+    /**
+     * @return
+     */
     private Place getUserTireInput() {
         listener = new MousePlacementCaseListener(this);
         curentPlace = null;
@@ -165,6 +235,12 @@ public class GraphicPlayer extends Player implements Serializable {
         return curentPlace;
     }
 
+    /**
+     * Permet de changer la 'state' des places donnée en parametre et de leur ajouter un bateau
+     *
+     * @param p  les places a changer
+     * @param b1 le bateau a ajouter
+     */
     private void changeCaseState(Place[] p, Bateaux b1) {
         for (Place place : p) {
             GraphicCase gc = map.get(place.getRow()).get(place.getColumnNumber());
@@ -173,6 +249,16 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * demande l'input user pour avoir la place puis ouvre un dialog pour savoir l'orientation <br>
+     * puis check si la place est bon avec la methode {@link Jeux#checkPlace(String, Grille, int, boolean)}<br>
+     * Si il y a une erreur, l'user a un dialog qui s'ouvre pour lui dire, il devra recommencer
+     *
+     * @param taille la taille du bateau a placer
+     * @param j      le jeux a link
+     * @param b      le boolean de sortie
+     * @return les places du bateau
+     */
     private Place[] getBateauPlace(int taille, Jeux j, boolean b) {
         while (true) {
             try {
@@ -196,6 +282,9 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * Remove le listener (<code>this.listener</code>) sur toutes les places, ne remove pas le listener principal
+     */
     private void removePlaceListener() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
@@ -204,6 +293,9 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * Place <code>this.listener</code> sur toutes les cases présente
+     */
     private void placerAllCase() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
@@ -212,6 +304,9 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * Place <code>this.listener</code> sur toutes les cases ou il n'y a pas de bateau et que la case n'est pas obstuer
+     */
     private void placerPlaceListener() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
@@ -222,6 +317,9 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * Place <code>this.listener</code> sur toutes les cases ou il n'y a pas de tire et que la case n'est pas obstuer
+     */
     private void placerPlaceTireListener() {
         for (List<GraphicCase> lgc : map.values()) {
             for (GraphicCase gc : lgc) {
@@ -232,6 +330,11 @@ public class GraphicPlayer extends Player implements Serializable {
         }
     }
 
+    /**
+     * Gère la variable wait, permet d'arrete l'attente du programme
+     *
+     * @param wait la valeur a metre
+     */
     public static void setWait(boolean wait) {
         GraphicPlayer.wait = wait;
     }
