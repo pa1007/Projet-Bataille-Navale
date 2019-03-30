@@ -1,6 +1,6 @@
 package graphic;
 
-import ai.AI;
+import ai.GraphicAI;
 import exception.GrilleNonCreeException;
 import jeux.Grille;
 import jeux.Jeux;
@@ -149,7 +149,7 @@ public class GraphicMain extends JFrame implements Serializable {
         List<Player> p = new ArrayList<>();
         p.add(new GraphicPlayer(map, this));
         if (r != ModeDeJeux.MONO_JOUEUR) {
-            p.add(new AI());
+            p.add(new GraphicAI(this));
         }
         j = new Jeux(r, p);
         for (Player pl : p) {
