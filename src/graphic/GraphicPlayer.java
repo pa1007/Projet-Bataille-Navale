@@ -68,31 +68,56 @@ public class GraphicPlayer extends Player implements Serializable {
     @Override
     public void placerBateau(Jeux j) throws GrilleNonCreeException {
         if (grille != null) {
+            AtomicBoolean bool = new AtomicBoolean(false);
+            graphicMain.setButtonAction("Placer aléatoirement !", e -> {
+                try {
+                    bool.set(true);
+                    placerBateauRandom(j);
+                }
+                catch (GrilleNonCreeException ignored) {
+                }
+            });
             changeDrawState(2);
-            boolean       b           = false;
-            List<Bateaux> bateauxList = new ArrayList<>();
-            Place[]       p           = getBateauPlace(5, j, b);
-            Bateaux       b1          = new ContreTorpilleur(p, j, this, b);
-            changeCaseState(p, b1);
-            bateauxList.add(b1);
-            this.grille.setListBateaux(bateauxList);
-            Place[] p2 = getBateauPlace(4, j, b);
-            Bateaux b2 = new PorteAvion(p, j, this, b);
-            changeCaseState(p2, b2);
-            bateauxList.add(b2);
-            Place[] p3 = getBateauPlace(3, j, b);
-            Bateaux b3 = new SousMarin(p, j, this, b);
-            changeCaseState(p3, b3);
-            bateauxList.add(b3);
-            Place[] p4 = getBateauPlace(2, j, b);
-            Bateaux b4 = new Torpilleur(p, j, this, b);
-            changeCaseState(p4, b4);
-            bateauxList.add(b4);
-            Place[] p5 = getBateauPlace(1, j, b);
-            Bateaux b5 = new Croiseur(p, j, this, b);
-            changeCaseState(p5, b5);
-            bateauxList.add(b5);
-            graphicMain.setMessage("Vous avez ajouter tout vos bateaux");
+            try {
+                boolean       b           = false;
+                List<Bateaux> bateauxList = new ArrayList<>();
+                Place[]       p           = getBateauPlace(5, j, b);
+                Bateaux       b1          = new ContreTorpilleur(p, j, this, b);
+                changeCaseState(p, b1);
+                bateauxList.add(b1);
+                this.grille.setListBateaux(bateauxList);
+                Place[] p2 = getBateauPlace(4, j, b);
+                Bateaux b2 = new PorteAvion(p, j, this, b);
+                changeCaseState(p2, b2);
+                bateauxList.add(b2);
+                Place[] p3 = getBateauPlace(3, j, b);
+                Bateaux b3 = new SousMarin(p, j, this, b);
+                changeCaseState(p3, b3);
+                bateauxList.add(b3);
+                Place[] p4 = getBateauPlace(2, j, b);
+                Bateaux b4 = new Torpilleur(p, j, this, b);
+                changeCaseState(p4, b4);
+                bateauxList.add(b4);
+                Place[] p5 = getBateauPlace(1, j, b);
+                Bateaux b5 = new Croiseur(p, j, this, b);
+                changeCaseState(p5, b5);
+                bateauxList.add(b5);
+                graphicMain.setMessage("Vous avez ajouter tout vos bateaux");
+            }
+            catch (Exception e) {
+                if (!bool.get()) {
+                    throw new NullPointerException();
+                }
+                else {
+                    for (Bateaux b : grille.getListBateaux()) {
+                        for (Place p : b.getPlaces()) {
+                            GraphicCase gc = graphicMain.getMap().get(p.getRow()).get(p.getColumnNumber());
+                            gc.setB(b);
+                            gc.changeLastState(1);
+                        }
+                    }
+                }
+            }
         }
         else {
             throw new GrilleNonCreeException();
@@ -259,15 +284,20 @@ public class GraphicPlayer extends Player implements Serializable {
      * @param b      le boolean de sortie
      * @return les places du bateau
      */
-    private Place[] getBateauPlace(int taille, Jeux j, boolean b) {
+    private Place[] getBateauPlace(int taille, Jeux j, boolean b) throws Exception {
         while (true) {
             try {
                 Place p = getUserBoatInput("Selectionnez la place en haut a gauche du bateau de taille " + taille);
                 if (taille != 1) {
-                    graphicMain.setMessage("Le bateau fais " + taille + " de longeur ! Choisir sont orientation");
-                    String[] options = {"Vertical", "Horizontal"};
-                    int      n       = graphicMain.askChois("Vertical ou Horizontal ?", options);
-                    b = options[n].equals("Horizontal");
+                    if (p != null) {
+                        graphicMain.setMessage("Le bateau fais " + taille + " de longeur ! Choisir sont orientation");
+                        String[] options = {"Vertical", "Horizontal"};
+                        int      n       = graphicMain.askChois("Vertical ou Horizontal ?", options);
+                        b = options[n].equals("Horizontal");
+                    }
+                    else {
+                        throw new Exception();
+                    }
                 }
                 return j.checkPlace(p.toString(), grille, taille, b);
             }

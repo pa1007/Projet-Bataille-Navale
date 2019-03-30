@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Player implements Serializable {
@@ -44,7 +45,7 @@ public class Player implements Serializable {
      * Sets the <code>grille</code> field.
      *
      * @param grille La grille du joueur.
-     
+
      */
     public void setGrille(Grille grille) {
         this.grille = grille;
@@ -254,6 +255,90 @@ public class Player implements Serializable {
         else {
             throw new GrilleNonCreeException();
         }
+    }
+
+    public int randBetween(int min, int max) {
+        return new Random().nextInt(max + 1 - min) + min;
+    }
+
+    public void placerBateauRandom(Jeux j) throws GrilleNonCreeException {
+        if (grille != null) {
+            Bateaux       b1, b2, b3, b4, b5;
+            List<Bateaux> bateauxList = new ArrayList<>();
+            while (true) {
+                Place   p = getRandomPlace();
+                boolean b = randBetween(0, 1) != 0;
+                Place[] places;
+                try {
+                    places = j.checkPlace(p.toString(), grille, 5, b);
+                    b1 = new ContreTorpilleur(places, j, this, b);
+                    bateauxList.add(b1);
+                    break;
+                }
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide ignored) {
+                }
+            }
+            grille.setListBateaux(bateauxList);
+            while (true) {
+                Place   p = getRandomPlace();
+                boolean b = randBetween(0, 1) != 0;
+                Place[] places;
+                try {
+                    places = j.checkPlace(p.toString(), grille, 4, b);
+                    b2 = new PorteAvion(places, j, this, b);
+                    bateauxList.add(b2);
+                    break;
+                }
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide ignored) {
+                }
+            }
+            while (true) {
+                Place   p = getRandomPlace();
+                boolean b = randBetween(0, 1) != 0;
+                Place[] places;
+                try {
+                    places = j.checkPlace(p.toString(), grille, 3, b);
+                    b3 = new SousMarin(places, j, this, b);
+                    bateauxList.add(b3);
+                    break;
+                }
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide ignored) {
+                }
+            }
+            while (true) {
+                Place   p = getRandomPlace();
+                boolean b = randBetween(0, 1) != 0;
+                Place[] places;
+                try {
+                    places = j.checkPlace(p.toString(), grille, 2, b);
+                    b4 = new SousMarin(places, j, this, b);
+                    bateauxList.add(b4);
+                    break;
+                }
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide ignored) {
+                }
+            }
+            while (true) {
+                Place   p = getRandomPlace();
+                boolean b = randBetween(0, 1) != 0;
+                Place[] places;
+                try {
+                    places = j.checkPlace(p.toString(), grille, 1, b);
+                    b5 = new SousMarin(places, j, this, b);
+                    bateauxList.add(b5);
+                    break;
+                }
+                catch (BateauxStartPointInvalide | BateauxMembreInvalide ignored) {
+                }
+            }
+        }
+        else {
+            throw new GrilleNonCreeException();
+        }
+    }
+
+    private Place getRandomPlace() {
+        return new Place(randBetween(1, grille.getHorizontal()), randBetween(1, grille.getVerticale()));
     }
 
     @Override
