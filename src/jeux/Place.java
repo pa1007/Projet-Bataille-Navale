@@ -7,38 +7,45 @@ public class Place implements Serializable {
 
 
     /**
-     * The name of the place composed of a Letter and a number.
-     *
-     * @since 1.0
+     * Le nom de la place compose d'un charactere et d'un numero.
      */
     private String name;
 
     /**
-     * The column character.
-     *
-     * @since 1.0
+     * Caractere de colonne.
      */
     private String column;
 
     /**
-     * The row number.
-     *
-     * @since 1.0
+     * Numero de la ligne.
      */
     private int row;
 
-
+    /**
+     * Constructeur de la place. Avec une chaine de caratere.
+     * @param s
+     */
     public Place(String s) {
         this.name = s.toUpperCase();
         generatePlace();
     }
 
+    /**
+     * Constructeur de la place. Avec un nom et une ligne.
+     * @param name
+     * @param row
+     */
     public Place(String name, int row) {
         this.column = name.toUpperCase();
         this.row = row;
         this.name = column + this.row;
     }
 
+    /**
+     * Constructeur de la place. Avec deux parametre entiers.
+     * @param verticale
+     * @param horizontal
+     */
     public Place(int verticale, int horizontal) {
         if (verticale > 0 && horizontal > 0 && verticale < 26) {
             char[] alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -49,18 +56,15 @@ public class Place implements Serializable {
     }
 
     /**
-     * @return The column character.
-     * @since 1.0
+     * @return Le caractere de la ligne.
      */
     public String getColumn() {
         return this.column;
     }
 
     /**
-     * Sets the <code>column</code> field.
-     *
-     * @param column The column character.
-     * @since 1.0
+     * Initialise la variable <code>column</code>.
+     * @param column
      */
     public void setColumn(String column) {
         this.name = this.name.replaceFirst(this.column, column);
@@ -68,18 +72,15 @@ public class Place implements Serializable {
     }
 
     /**
-     * @return The row number.
-     * @since 1.0
+     * @return Le numero de la ligne
      */
     public int getRow() {
         return this.row;
     }
 
     /**
-     * Sets the <code>row</code> field.
-     *
-     * @param row The row number.
-     * @since 1.0
+     * Initialise le numero de la <code>row</code>.
+     * @param row 
      */
     public void setRow(int row) {
         this.name = this.name.replaceFirst(String.valueOf(this.row), String.valueOf(row));
@@ -87,18 +88,16 @@ public class Place implements Serializable {
     }
 
     /**
-     * @return The name of the place composed of a Letter and a number.
-     * @since 1.0
+     * @return Nom de la place (entier et charactere).
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * Sets the <code>name</code> field.
+     * Initialise le <code>name</code> de la place.
      *
-     * @param name The name of the place composed of a Letter and a number.
-     * @since 1.0
+     * @param name Nom de la place (entier et charactere).
      */
     public void setName(String name) {
         this.name = name;
@@ -107,39 +106,39 @@ public class Place implements Serializable {
 
 
     /**
-     * @return
+     * @return le numero de la colonne.
      */
     public int getColumnNumber() {
         return column.toLowerCase().charAt(0) - 'a';
     }
 
     /**
-     * Pour tester si c'est la même
+     * Pour tester si c'est la meme 
      *
      * @param p6 le string a tester
-     * @return true si elle sont les mêmes ou false si non
+     * @return true si elle sont les memes ou false si non
      */
     public boolean is(String p6) {
         return name.equals(p6.toUpperCase());
     }
 
     /**
-     * Pour tester si c'est la même
+     * Pour tester si c'est la meme
      *
      * @param place la place a tester
-     * @return true si elle sont les mêmes ou false si non
+     * @return true si elle sont les memes ou false si non
      */
     public boolean is(Place place) {
         return name.equalsIgnoreCase(place.name);
     }
 
     /**
-     * This method give you the current place with the moved of row and column add in parameters <br>
-     * The column is between "A" and "Z",
+     * Methode qui revoie une place qui correspond a la place initiale + les parametres.<br>
+     * Les places des colonnes sont comprises entre "A" et "Z".
      *
-     * @param row    the amount of row to move from
-     * @param column the amount of column to move from max 26
-     * @return a new place with the moved column and row or A0 if the place is outside the board
+     * @param  row    de combien se deplacer sur la ligne
+     * @param  column de combien se deplacer sue la colonne max 26
+     * @return une place qui a ete incremente des parametres, si elle est en dehors des limites (0, 26) retourne "A0"
      */
     public Place more(int row, int column) {
         int tempR = this.row + row;
@@ -154,7 +153,8 @@ public class Place implements Serializable {
     }
 
     /**
-     *
+     * Methode qui cree une place en fonction <code>this.name</code>.
+     * @throws RuntimeException si la premiere valeure est fausse
      */
     private void generatePlace() {
         if (Character.isAlphabetic(name.toCharArray()[0])) {
@@ -162,7 +162,7 @@ public class Place implements Serializable {
             row = Integer.valueOf(name.replace(column, ""));
         }
         else {
-            throw new RuntimeException("Premeiere valeur fause");
+            throw new RuntimeException("Premiere valeur fausse");
         }
     }
 
@@ -187,7 +187,7 @@ public class Place implements Serializable {
     }
 
     /**
-     * @return a string
+     * @return a String
      */
     @Override
     public String toString() {
