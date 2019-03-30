@@ -7,6 +7,11 @@ import java.util.List;
 
 public class Interclassment {
 
+    /**
+     * Methode qui trie une liste de bateaux en fonction de leurs tailles.
+     * @param batLis liste de bateau a trier
+     * @return la liste de bateau trie par taille.
+     */
     public static List<Bateaux> sortByTaille(List<Bateaux> batLis) {
         int           tmp  = batLis.size();
         List<Bateaux> res  = new ArrayList<>(tmp);
@@ -26,6 +31,11 @@ public class Interclassment {
         return res;
     }
 
+    /**
+     * Methode qui trie une liste de bateaux en fonction de leurs degats.
+     * @param batLis liste de bateau a trier
+     * @return la liste de bateau trie par degats.
+     */
     public static List<Bateaux> sortByDamage(List<Bateaux> batLis) {
         int           tmp  = batLis.size();
         List<Bateaux> res  = new ArrayList<>(tmp);
