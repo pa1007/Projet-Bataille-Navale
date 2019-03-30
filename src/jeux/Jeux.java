@@ -31,9 +31,8 @@ public class Jeux implements Serializable {
 
     /**
      * Constructeur du Jeux.
-     *
-     * @param modeDeJeux mode de jeux utilise
-     * @param listPlayer liste de joueur
+     * @param modeDeJeux mode de jeux utilise.
+     * @param listPlayer liste de joueur.
      */
     public Jeux(int modeDeJeux, List<Player> listPlayer) {
         this.modeDeJeux = modeDeJeux;
@@ -50,8 +49,7 @@ public class Jeux implements Serializable {
 
     /**
      * Methode qui ajoute une place obstrue au Jeux.
-     *
-     * @param p place
+     * @param p place.
      */
     public void addPlaceObstue(Place p) {
         obstrue.add(p);
@@ -82,7 +80,6 @@ public class Jeux implements Serializable {
 
     /**
      * Methode qui permet de lancer une partie.
-     *
      * @throws GrilleNonCreeException si la grille n'est pas crée.
      */
     public void lancerPartie() throws GrilleNonCreeException {
@@ -93,10 +90,9 @@ public class Jeux implements Serializable {
 
     /**
      * Methode qui permet de tirer sur une place.
-     *
-     * @param place sur laquelle on tire
-     * @param p     joueur
-     * @return true si un bateau a ete touche.
+     * @param place sur laquelle on tire.
+     * @param p     joueur.
+     * @return      true si un bateau a ete touche.
      * @throws PlacementInvalid si la place est invalide.
      */
     public boolean tire(Place place, Player p) throws PlacementInvalid {
@@ -127,7 +123,6 @@ public class Jeux implements Serializable {
 
     /**
      * Methode qui permet de lancer une partie avec les graphismes.
-     *
      * @param graphicMain classe principale de la partie graphique.
      * @throws GrilleNonCreeException si la grille n'est pas crée.
      */
@@ -145,12 +140,11 @@ public class Jeux implements Serializable {
     /**
      * Methode qui retourne toutes les place occupes par un bateau dont la taille est mis en parametre.<br>
      * Methode qui teste la place mis en parametre "s" et permet de tester les places qui en découle grace a l'orientatin et a la taille du bateau.
-     *
      * @param s         place principale du bateau.
      * @param g         grille sur laquelle le bateau est place.
      * @param tailleBat taille du bateau.
      * @param b         orientation du bateau.
-     * @return toutes les places occupees par un bateau.
+     * @return          toutes les places occupees par un bateau.
      * @throws BateauxStartPointInvalide si la place principale du bateau est invalide.
      * @throws BateauxMembreInvalide     si les places du bateau sont invalides.
      */
@@ -174,11 +168,10 @@ public class Jeux implements Serializable {
     }
 
     /**
-     * Methode qui permet de savoir si un bateau est bien sur la grille et a la place donne
-     *
+     * Methode qui permet de savoir si un bateau est bien sur la grille et a la place donne.
      * @param p place a verifie
      * @param g grille
-     * @return bateau a la place sur la grille.
+     * @return  bateau a la place sur la grille.
      */
     public Bateaux bateauAt(Place p, Grille g) {
         if (g.inBound(p)) {
@@ -191,6 +184,11 @@ public class Jeux implements Serializable {
         return null;
     }
 
+    /***
+     * Methode qui permet d'acceder a l'autre joueur.
+     * @param  ai intelligence atrificielle.
+     * @return un joueur autre que l'intelligence artifiel, ou elle meme.
+     */
     public Player getOtherPlayer(Player ai) {
         if (listPlayer.size() == 2) {
             for (Player p : listPlayer) {
@@ -199,12 +197,11 @@ public class Jeux implements Serializable {
                 }
             }
         }
-        return null;
+        return ai;
     }
 
     /**
      * Methode qui permet d'ajouter un bateau au joueur.
-     *
      * @throws GrilleNonCreeException si la grille n'a pas ete cree.
      */
     private void ajouterBateaux() throws GrilleNonCreeException {
@@ -215,7 +212,6 @@ public class Jeux implements Serializable {
 
     /**
      * Methode qui demande a l'utilisateur de placer des cases a obstruer (iles).
-     *
      * @throws GrilleNonCreeException si la grille n'a pas ete cree.
      */
     private void askObstuerCase() throws GrilleNonCreeException {
@@ -232,7 +228,7 @@ public class Jeux implements Serializable {
     }
 
     /**
-     * methode statique qui nettoie la console pour une meilleure lisibilité
+     * methode statique qui nettoie la console pour une meilleure lisibilité.
      */
     public static void clearScreen() {
         for (int i = 0; i < 50; ++i) {

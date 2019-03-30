@@ -23,7 +23,7 @@ public class Place implements Serializable {
 
     /**
      * Constructeur de la place. Avec une chaine de caratere.
-     * @param s
+     * @param s chaine de caractere qui correspond a une place.
      */
     public Place(String s) {
         this.name = s.toUpperCase();
@@ -32,8 +32,8 @@ public class Place implements Serializable {
 
     /**
      * Constructeur de la place. Avec un nom et une ligne.
-     * @param name
-     * @param row
+     * @param name charactere de la place.
+     * @param row  entier de la place.
      */
     public Place(String name, int row) {
         this.column = name.toUpperCase();
@@ -43,8 +43,8 @@ public class Place implements Serializable {
 
     /**
      * Constructeur de la place. Avec deux parametre entiers.
-     * @param verticale
-     * @param horizontal
+     * @param verticale  position verticale de la place.
+     * @param horizontal position horizontale de la place.
      */
     public Place(int verticale, int horizontal) {
         if (verticale > 0 && horizontal > 0 && verticale < 26) {
@@ -72,7 +72,7 @@ public class Place implements Serializable {
     }
 
     /**
-     * @return Le numero de la ligne
+     * @return Le numero de la ligne.
      */
     public int getRow() {
         return this.row;
@@ -96,7 +96,6 @@ public class Place implements Serializable {
 
     /**
      * Initialise le <code>name</code> de la place.
-     *
      * @param name Nom de la place (entier et charactere).
      */
     public void setName(String name) {
@@ -113,8 +112,7 @@ public class Place implements Serializable {
     }
 
     /**
-     * Pour tester si c'est la meme 
-     *
+     * Pour tester si c'est la meme place.
      * @param p6 le string a tester
      * @return true si elle sont les memes ou false si non
      */
@@ -123,10 +121,9 @@ public class Place implements Serializable {
     }
 
     /**
-     * Pour tester si c'est la meme
-     *
-     * @param place la place a tester
-     * @return true si elle sont les memes ou false si non
+     * Pour tester si c'est la meme place.
+     * @param  place la place a tester.
+     * @return true si elle sont les memes ou false si non.
      */
     public boolean is(Place place) {
         return name.equalsIgnoreCase(place.name);
@@ -135,10 +132,9 @@ public class Place implements Serializable {
     /**
      * Methode qui revoie une place qui correspond a la place initiale + les parametres.<br>
      * Les places des colonnes sont comprises entre "A" et "Z".
-     *
-     * @param  row    de combien se deplacer sur la ligne
-     * @param  column de combien se deplacer sue la colonne max 26
-     * @return une place qui a ete incremente des parametres, si elle est en dehors des limites (0, 26) retourne "A0"
+     * @param  row    de combien se deplacer sur la ligne.
+     * @param  column de combien se deplacer sue la colonne max 26.
+     * @return une place qui a ete incremente des parametres, si elle est en dehors des limites (0, 26) retourne "A0".
      */
     public Place more(int row, int column) {
         int tempR = this.row + row;
@@ -154,7 +150,7 @@ public class Place implements Serializable {
 
     /**
      * Methode qui cree une place en fonction <code>this.name</code>.
-     * @throws RuntimeException si la premiere valeure est fausse
+     * @throws RuntimeException si la premiere valeure est fausse.
      */
     private void generatePlace() {
         if (Character.isAlphabetic(name.toCharArray()[0])) {
@@ -187,7 +183,7 @@ public class Place implements Serializable {
     }
 
     /**
-     * @return a String
+     * @return un String
      */
     @Override
     public String toString() {

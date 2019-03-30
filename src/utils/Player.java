@@ -257,10 +257,21 @@ public class Player implements Serializable {
         }
     }
 
+    /**
+     * Methode qui permet d'obtenir un nombre aleatoire entre deux autres entiers.
+     * @param min borne inferieur du random.
+     * @param max borne superieur du random.
+     * @return l'entier compris entre les deux parametres.
+     */
     public int randBetween(int min, int max) {
         return new Random().nextInt(max + 1 - min) + min;
     }
 
+    /**
+     * Methode qui permet de placer un bateau de maniere aleatoir sur la grille d'un jeux.
+     * @param j jeux sur lequel placer un bateau.
+     * @throws GrilleNonCreeException si la grille n'a pas ete cree.
+     */
     public void placerBateauRandom(Jeux j) throws GrilleNonCreeException {
         if (grille != null) {
             Bateaux       b1, b2, b3, b4, b5;
@@ -337,7 +348,7 @@ public class Player implements Serializable {
         }
     }
 
-    private Place getRandomPlace() {
+    protected Place getRandomPlace() {
         return new Place(randBetween(1, grille.getHorizontal()), randBetween(1, grille.getVerticale()));
     }
 
