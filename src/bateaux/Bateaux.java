@@ -10,24 +10,39 @@ import java.util.List;
 
 public abstract class Bateaux implements Serializable {
 
-    protected List<Place> touchedPlace;
-
-    protected List<Place> places;
-
-    protected Jeux game;
-
-    protected Player  player;
-    /**
-     * La place en bas a gauche.
-     *
-     * @since 1.0
-     */
-    protected Place   place;
     /**
      * L'orientation.
      */
-    protected boolean orientation;
+    private boolean orientation;
 
+    /**
+     * Le joueur propriétaire
+     */
+    private Player player;
+
+    /**
+     * La ou le bateau a été tuché
+     */
+    private List<Place> touchedPlace;
+
+    /**
+     * Listes des places qu'occupe le bateau
+     */
+    private List<Place> places;
+
+    /**
+     * L'instance du jeu
+     */
+    private Jeux game;
+
+    /**
+     * Constructeur de bateau (test effectuer avant)
+     *
+     * @param place       las places prises par les parties du bateau
+     * @param game        l'instance du jeu
+     * @param player      le joueur propriétaire
+     * @param orientation l'orientation du bateau
+     */
     public Bateaux(Place[] place, Jeux game, Player player, boolean orientation) {
         this.places = Arrays.asList(place);
         this.game = game;
@@ -51,15 +66,6 @@ public abstract class Bateaux implements Serializable {
     public void setOrientation(boolean orientation) {
         this.orientation = orientation;
     }
-
-    /**
-     * @return La place en bas a gauche.
-     * @since 1.0
-     */
-    public Place getPlace() {
-        return this.place;
-    }
-
 
     /**
      * Permet d'avoir la place d'un bateau sous la forme de l'object {@link Place}
@@ -88,30 +94,60 @@ public abstract class Bateaux implements Serializable {
         return player;
     }
 
+    /**
+     * Ajoute facilement un tire sur un bateau
+     *
+     * @param place la place touché
+     */
     public void toucher(Place place) {
         touchedPlace.add(place);
     }
 
+    /**
+     * @return le nombre de bout de bateau toucher
+     */
     public int nbToucher() {
         return touchedPlace.size();
     }
 
+    /**
+     * @return le poucentage de damage du bateau
+     */
     public double getPurcentDamage() {
         return ((double) nbToucher()) / taille();
     }
 
+    /**
+     * Savoir si le bateau est mort (coulé) ou non
+     *
+     * @return true si mort, false si non mort
+     */
     public boolean dead() {
-        return getPurcentDamage() == 1;
+        return nbToucher() == taille();
     }
 
+    /**
+     * La lettre du bateau , "B" si il n'est pas mort <br>
+     * "฿" Si il est coulé (Ne s'affiche pas sur toutes les consoles, surement changer en "C")
+     *
+     * @return un string qui correspond a l'affichage du bateau
+     */
     public String getLetter() {
         return dead() ? "฿" : "B";
     }
 
+    /**
+     * @return La taille du bateau
+     */
     public int taille() {
         return places.size();
     }
 
+    /**
+     * Le toString, qui permet de debug
+     *
+     * @return un string
+     */
     @Override
     public String toString() {
         return "Bateaux{" + "places=" + places
