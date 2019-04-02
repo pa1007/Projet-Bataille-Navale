@@ -39,7 +39,8 @@ public class MouseCaseListener implements MouseListener, Serializable {
     }
 
     /**
-     * Invoked when the mouse enters a component.
+     * Invoked when the mouse enters a component.<br>
+     * Permet de savoir quand la sourie rentre dans la fenetre et de dessiner la selection
      *
      * @param e the event to be processed
      */
@@ -50,7 +51,8 @@ public class MouseCaseListener implements MouseListener, Serializable {
     }
 
     /**
-     * Invoked when the mouse exits a component.
+     * Invoked when the mouse exits a component.<br>
+     * Permet de savoir quand la sourie sort dans la fenetre et de dessiner la derniere state
      *
      * @param e the event to be processed
      */
