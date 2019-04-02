@@ -1,11 +1,9 @@
 package exception;
 
-public class LoadSaveException extends Exception {
+public class LoadSaveException extends MesException {
 
     /**
-     * Constructs a new exception with {@code null} as its detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
+     * Cree lorsqu'il y a une erreur dans la sauvegarde
      */
     public LoadSaveException() {
         super("Erreur lors du loading de la save");

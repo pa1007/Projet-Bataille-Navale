@@ -1,23 +1,18 @@
 package exception;
 
-public class PlacementInvalid extends Exception {
+public class PlacementInvalid extends MesException {
 
     /**
-     * Constructs a new exception with {@code null} as its detail message.
-     * The cause is not initialized, and may subsequently be initialized by a
-     * call to {@link #initCause}.
+     * Cree une exception Placement invalide avec un message pres defini
      */
     public PlacementInvalid() {
         super("Place non valide pour tirer");
     }
 
     /**
-     * Constructs a new exception with the specified detail message.  The
-     * cause is not initialized, and may subsequently be initialized by
-     * a call to {@link #initCause}.
+     * Cree une exception Placement invalide avec un message a metre
      *
-     * @param message the detail message. The detail message is saved for
-     *                later retrieval by the {@link #getMessage()} method.
+     * @param message le message d'erreur
      */
     public PlacementInvalid(String message) {
         super(message);
