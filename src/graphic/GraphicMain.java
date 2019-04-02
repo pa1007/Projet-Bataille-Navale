@@ -19,18 +19,39 @@ import java.util.Map;
 
 public class GraphicMain extends JFrame implements Serializable {
 
+    /**
+     * la taille en horizontale et verticale
+     */
     private int h, v;
 
+    /**
+     * Une instance du jeu
+     */
     private Jeux j;
 
+    /**
+     * Les JPanel presents
+     */
     private JPanel leftPanel, rightPanel, contentPane;
 
+    /**
+     * affichage du text
+     */
     private JLabel mainText;
 
+    /**
+     * Le stockage des cases, table qui lie l'horizontale et la verticale
+     */
     private Map<Integer, List<GraphicCase>> map;
 
+    /**
+     * Le bouton present
+     */
     private JButton mainButton;
 
+    /**
+     * Construit la JFrame princiaple
+     */
     public GraphicMain() {
         map = new HashMap<>();
         this.setTitle("Bataile Navale");
@@ -66,22 +87,45 @@ public class GraphicMain extends JFrame implements Serializable {
         setVisible(true);
     }
 
+    /**
+     * Lance le jeu
+     *
+     * @throws GrilleNonCreeException si la grille n'a pas été mise pour l'un des joueur
+     */
     public void launchGame() throws GrilleNonCreeException {
         j.lancerPartieGraph(this);
     }
 
+    /**
+     * @return une table avec pour chaque int 0 jusqu'a horisontale -1 une liste de 0 a verticale -1 de case
+     */
     public Map<Integer, List<GraphicCase>> getMap() {
         return map;
     }
 
+    /**
+     * @return l'instance du jeu
+     */
     public Jeux getJeux() {
         return j;
     }
 
+    /**
+     * Permet de metre un message dans le texte principale
+     *
+     * @param s le message a mêtre
+     */
     public void setMessage(String s) {
         mainText.setText(s);
     }
 
+    /**
+     * Creation facile de demande de rentrer utilisateur
+     *
+     * @param title le titre de la fenetre
+     * @param o     Les choix dispo
+     * @return le numero du choix, -1 si quiter
+     */
     public int askChois(String title, String[] o) {
         return JOptionPane.showOptionDialog(
                 this,
@@ -95,12 +139,21 @@ public class GraphicMain extends JFrame implements Serializable {
         );
     }
 
+    /**
+     * Permet d'ajouter un text sur le bouton et une action
+     *
+     * @param s              le texte a ajouter
+     * @param actionListener l'action a effectuer
+     */
     public void setButtonAction(String s, ActionListener actionListener) {
         mainButton.setText(s);
         mainButton.addActionListener(actionListener);
         mainButton.setVisible(true);
     }
 
+    /**
+     * Permet de reset le bouton
+     */
     public void resetMainButton() {
         mainButton.setText("");
         try {
@@ -111,6 +164,9 @@ public class GraphicMain extends JFrame implements Serializable {
         mainButton.setVisible(false);
     }
 
+    /**
+     * Crée les panels
+     */
     private void createPanels() {
         leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
@@ -124,6 +180,9 @@ public class GraphicMain extends JFrame implements Serializable {
         rightPanel.setLayout(gridLayout);
     }
 
+    /**
+     * Initialise le jeux
+     */
     private void initGame() {
         while (h < 10 || h > 26) {
             try {
@@ -157,6 +216,9 @@ public class GraphicMain extends JFrame implements Serializable {
         }
     }
 
+    /**
+     * Place les letres sur le grid
+     */
     private void placeLetter() {
         char[] alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         for (int i = 0; i < h + 1; i++) {

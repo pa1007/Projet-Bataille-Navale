@@ -10,16 +10,33 @@ import utils.Player;
 
 public class AI extends Player {
 
+    /**
+     * Constucteur de l'ia, prend le constructeur de Player puis et le boolean ai sur true
+     */
     public AI() {
         super();
         setAI(true);
     }
 
+    /**
+     * {@inheritDoc} <br>Placer aléatoirement grace a la methode {@link Player#placerBateauRandom(Jeux)}
+     *
+     * @param jeux l'instance du jeu
+     * @throws GrilleNonCreeException si la grille est null
+     * @see Player#placerBateauRandom(Jeux)
+     */
     public void placerBateau(Jeux jeux) throws GrilleNonCreeException {
         placerBateauRandom(jeux);
     }
 
 
+    /**
+     * Ceci permet a l'ia de jouer
+     *
+     * <br> Cette methode est faite aleatoirement
+     *
+     * @param jeux jeux a lancer.
+     */
     @Override
     public void play(Jeux jeux) {
         while (true) {
@@ -32,8 +49,8 @@ public class AI extends Player {
                     break;
                 }
             }
-            for (Place pl : jeux.getObstrue()){
-                if (pl.is(p)){
+            for (Place pl : jeux.getObstrue()) {
+                if (pl.is(p)) {
                     good = false;
                     break;
                 }
@@ -54,6 +71,12 @@ public class AI extends Player {
         }
     }
 
+    /**
+     * Permet d'obstuer une case aléatoirement entre 0 et 10, si une case déja obstuer est selectioner, rien ne se passe
+     *
+     * @param jeux jeux auxquel ajouter un cas obstrue.
+     * @throws GrilleNonCreeException si la grille est null
+     */
     public void obstruerCase(Jeux jeux) throws GrilleNonCreeException {
         int r = randBetween(0, 10);
         for (int i = 0; i < r; i++) {

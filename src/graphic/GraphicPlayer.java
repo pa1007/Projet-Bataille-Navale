@@ -247,7 +247,9 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * @return
+     * Attend l'imput user pour tirer
+     *
+     * @return la place tirer par l'utilisateur (stocker dans curentPlace aussi)
      */
     private Place getUserTireInput() {
         listener = new MousePlacementCaseListener(this);
