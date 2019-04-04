@@ -12,11 +12,11 @@ public class Grille implements Serializable {
     /**
      * Ou l'enemi a tirer, en cas de mono joueur, ça reste vide.
      */
-    private List<Place>   enemyFire;
+    private List<Place> enemyFire;
     /**
      * Nombre de cases verticales.
      */
-    private int verticale;
+    private int         verticale;
 
     /**
      * Nombre de cases horizontales.
@@ -49,10 +49,11 @@ public class Grille implements Serializable {
 
     /**
      * Constructeur de la grille.
-     * @param verticale taille de la grille sur l'axe y.
+     *
+     * @param verticale  taille de la grille sur l'axe y.
      * @param horizontal taille de la grille sur l'axe x.
-     * @param jeux jeux dans lequel la grille se trouve.
-     * @param p player a qui appartient cette grille.
+     * @param jeux       jeux dans lequel la grille se trouve.
+     * @param p          player a qui appartient cette grille.
      */
     public Grille(int verticale, int horizontal, Jeux jeux, Player p) {
         this.verticale = verticale;
@@ -146,7 +147,7 @@ public class Grille implements Serializable {
      * Methode publique qui verifie si une place est valide (pas de bateaux, pas d'iles, pas le bord de la grille).
      *
      * @param pl place a verifier.
-     * @return   boolean si la place est valide.
+     * @return boolean si la place est valide.
      */
     public boolean placeValide(Place pl) {
         if (inBound(pl)) {
@@ -164,7 +165,8 @@ public class Grille implements Serializable {
 
     /**
      * Methode qui teste si une place est valide dans la grille.
-     * @param  pl place a verifier.
+     *
+     * @param pl place a verifier.
      * @return boolean, si la place est valide.
      */
     public boolean inBound(Place pl) {
@@ -219,6 +221,7 @@ public class Grille implements Serializable {
 
     /**
      * Methode qui formate l'affichage des tires dans la console.
+     *
      * @return String
      */
     public String consolTireFormat() {
@@ -227,11 +230,15 @@ public class Grille implements Serializable {
             sb.append(i < 10 ? "0" + i : i);
             sb.append(" ");
             for (int j = 0; j < horizontal; j++) {
-                String w = "O";
-                if (jeux.getObstrue().contains(new Place(j, i))) {
-                    w = "p";
+                boolean stop = false;
+                String  w    = "O";
+                for (Place p : jeux.getObstrue()) {
+                    if (p.getRow() == i && p.getColumnNumber() == j) {
+                        w = "p";
+                        stop = true;
+                    }
                 }
-                else {
+                if (stop) {
                     for (Tire t : tires) {
                         Place p = t.getPlace();
                         if (p.getRow() == i && p.getColumnNumber() == j) {
@@ -247,9 +254,10 @@ public class Grille implements Serializable {
         }
         return sb.toString();
     }
-    
+
     /**
      * Methode qui ajoute un nouveau tire a la grille (<code>remplace un grille.getTires().add(tire)</code>).
+     *
      * @param tire tire a ajouter a la grille.
      */
     public void addNewTire(Tire tire) {
@@ -270,7 +278,8 @@ public class Grille implements Serializable {
 
     /**
      * Methode qui valide si la place est libre (ile).
-     * @param  pl place a obstruer.
+     *
+     * @param pl place a obstruer.
      * @return true si la place est obstruee, false sinon.
      */
     private boolean obstuer(Place pl) {
@@ -279,6 +288,7 @@ public class Grille implements Serializable {
 
     /**
      * Methode qui renvoie la première ligne de la grille en console
+     *
      * @return le premiere ligne de la grille.
      */
     private String getPremiereLigne() {

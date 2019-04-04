@@ -45,7 +45,6 @@ public class Player implements Serializable {
      * Sets the <code>grille</code> field.
      *
      * @param grille La grille du joueur.
-
      */
     public void setGrille(Grille grille) {
         this.grille = grille;
@@ -54,6 +53,7 @@ public class Player implements Serializable {
 
     /**
      * Methode qui permet de placer un bateau dans un jeux.
+     *
      * @param j jeux sur lequel placer le bateau.
      * @throws GrilleNonCreeException si la grille n'a pas pu etre cree.
      */
@@ -167,6 +167,7 @@ public class Player implements Serializable {
 
     /**
      * Initialise le <code>ai</code>.
+     *
      * @param AI Si le joueur est une IA.
      */
     public void setAI(boolean AI) {
@@ -175,13 +176,14 @@ public class Player implements Serializable {
 
     /**
      * Methode qui permet de lancer le jeux, et de le sauvegarder.
+     *
      * @param jeux jeux a lancer.
      */
     public void play(Jeux jeux) {
         System.out.println(getGrille().consolBateauFormat());
         Scanner sc = new Scanner(System.in);
         while (true) {
-            Jeux.clearScreen();
+
             System.out.println(getGrille().consolTireFormat());
             try {
                 new SavedObject(jeux).save();
@@ -200,14 +202,17 @@ public class Player implements Serializable {
                     p = new Place(s);
                 }
                 catch (Exception e) {
+                    Jeux.clearScreen();
                     System.err.println("Place non valide !");
                     continue;
                 }
+                Jeux.clearScreen();
                 try {
                     boolean b = jeux.tire(p, this);
                     System.out.println(b ? "Vous avez touché un bateau" : "Vous tomber dans l'eau, dommage");
                 }
                 catch (PlacementInvalid placementInvalid) {
+                    Jeux.clearScreen();
                     System.out.println(placementInvalid.getMessage());
                     continue;
                 }
@@ -225,6 +230,7 @@ public class Player implements Serializable {
 
     /**
      * Methode qui permet d'obstruer un case (ile).
+     *
      * @param jeux jeux auxquel ajouter un cas obstrue.
      * @throws GrilleNonCreeException si la grille n'a pas pu etre cree.
      */
@@ -259,6 +265,7 @@ public class Player implements Serializable {
 
     /**
      * Methode qui permet d'obtenir un nombre aleatoire entre deux autres entiers.
+     *
      * @param min borne inferieur du random.
      * @param max borne superieur du random.
      * @return l'entier compris entre les deux parametres.
@@ -269,6 +276,7 @@ public class Player implements Serializable {
 
     /**
      * Methode qui permet de placer un bateau de maniere aleatoir sur la grille d'un jeux.
+     *
      * @param j jeux sur lequel placer un bateau.
      * @throws GrilleNonCreeException si la grille n'a pas ete cree.
      */
@@ -349,7 +357,7 @@ public class Player implements Serializable {
     }
 
     protected Place getRandomPlace() {
-        return new Place(randBetween(1, grille.getHorizontal()), randBetween(1, grille.getVerticale()));
+        return new Place(randBetween(1, grille.getVerticale()), randBetween(1, grille.getHorizontal()));
     }
 
     @Override
