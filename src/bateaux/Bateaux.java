@@ -16,12 +16,12 @@ public abstract class Bateaux implements Serializable {
     private boolean orientation;
 
     /**
-     * Le joueur propriétaire
+     * Le joueur proprietaire
      */
     private Player player;
 
     /**
-     * La ou le bateau a été tuché
+     * La ou le bateau a été touche
      */
     private List<Place> touchedPlace;
 
@@ -101,6 +101,14 @@ public abstract class Bateaux implements Serializable {
      */
     public void toucher(Place place) {
         touchedPlace.add(place);
+    }
+    
+    /**
+     * Retourne la liste de place touche pour les tests
+     * @return la liste de places touchees.
+     */
+    public List<Place> getTouchedPlace(){
+    	return this.touchedPlace;
     }
 
     /**
