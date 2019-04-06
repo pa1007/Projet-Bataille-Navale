@@ -97,6 +97,9 @@ public class TestGrille {
         assertTrue("La place est ocupper par un bateau", r);
     }
 
+    /**
+     * Test inBound fonctionnel
+     */
     @Test
     public void testInBoundNormal() {
         Player       p  = new Player();
@@ -111,6 +114,9 @@ public class TestGrille {
         assertTrue("La place doit etre dans la grille", res);
     }
 
+    /**
+     * Test inBound quand le X est trop grand
+     */
     @Test
     public void testInBoundOversizedXaxe() {
         Player       p  = new Player();
@@ -125,6 +131,9 @@ public class TestGrille {
         assertFalse("La place ne doit pas etre dans la grille", res);
     }
 
+    /**
+     * Test inBound quand le Y est trop grand
+     */
     @Test
     public void testInBoundOversizedYaxe() {
         Player       p  = new Player();
@@ -139,12 +148,147 @@ public class TestGrille {
         assertFalse("La place ne doit pas etre dans la grille", res);
     }
 
+    /**
+     * Test de l'affichage des bateaux vide
+     */
     @Test
-    public void testConsolBateauFormat() {
+    public void testConsolBateauFormatSansBateau() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(15, 15, j, p);
+
+        String s = g.consolBateauFormat();
+
+        assertEquals("Les strings ne sont pas pareil, il y a une erreur dans l'affichage",
+                     "   a b c d e f g h i j k l m n o \n"
+                     + "01 O O O O O O O O O O O O O O O \n"
+                     + "02 O O O O O O O O O O O O O O O \n"
+                     + "03 O O O O O O O O O O O O O O O \n"
+                     + "04 O O O O O O O O O O O O O O O \n"
+                     + "05 O O O O O O O O O O O O O O O \n"
+                     + "06 O O O O O O O O O O O O O O O \n"
+                     + "07 O O O O O O O O O O O O O O O \n"
+                     + "08 O O O O O O O O O O O O O O O \n"
+                     + "09 O O O O O O O O O O O O O O O \n"
+                     + "10 O O O O O O O O O O O O O O O \n"
+                     + "11 O O O O O O O O O O O O O O O \n"
+                     + "12 O O O O O O O O O O O O O O O \n"
+                     + "13 O O O O O O O O O O O O O O O \n"
+                     + "14 O O O O O O O O O O O O O O O \n"
+                     + "15 O O O O O O O O O O O O O O O \n", s
+        );
     }
 
+    /**
+     * Test de l'affichage des bateaux avec des bateaux
+     */
     @Test
-    public void testConsolTireFormat() {
+    public void testConsolBateauFormatAvecBateauEtIle() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(15, 15, j, p);
+        j.addPlaceObstue(new Place("A6"));
+        Bateaux       b  = new ContreTorpilleur(new Place[]{new Place("C5")}, j, p, true);
+        List<Bateaux> bl = new ArrayList<>();
+        Bateaux       b2 = new ContreTorpilleur(new Place[]{new Place("I5")}, j, p, true);
+        b2.toucher(new Place("I5"));
+        bl.add(b);
+        bl.add(b2);
+        g.setListBateaux(bl);
+
+        String s = g.consolBateauFormat();
+
+        assertEquals("Les strings ne sont pas pareil, il y a une erreur dans l'affichage",
+                     "   a b c d e f g h i j k l m n o \n"
+                     + "01 O O O O O O O O O O O O O O O \n"
+                     + "02 O O O O O O O O O O O O O O O \n"
+                     + "03 O O O O O O O O O O O O O O O \n"
+                     + "04 O O O O O O O O O O O O O O O \n"
+                     + "05 O O B O O O O O ฿ O O O O O O \n"
+                     + "06 p O O O O O O O O O O O O O O \n"
+                     + "07 O O O O O O O O O O O O O O O \n"
+                     + "08 O O O O O O O O O O O O O O O \n"
+                     + "09 O O O O O O O O O O O O O O O \n"
+                     + "10 O O O O O O O O O O O O O O O \n"
+                     + "11 O O O O O O O O O O O O O O O \n"
+                     + "12 O O O O O O O O O O O O O O O \n"
+                     + "13 O O O O O O O O O O O O O O O \n"
+                     + "14 O O O O O O O O O O O O O O O \n"
+                     + "15 O O O O O O O O O O O O O O O \n", s
+        );
+    }
+
+    /**
+     * Test de l'affichage de tire vide
+     */
+    @Test
+    public void testConsolTireFormatSansBateau() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(15, 15, j, p);
+
+        String s = g.consolTireFormat();
+
+        assertEquals("Les strings ne sont pas pareil, il y a une erreur dans l'affichage",
+                     "   a b c d e f g h i j k l m n o \n"
+                     + "01 O O O O O O O O O O O O O O O \n"
+                     + "02 O O O O O O O O O O O O O O O \n"
+                     + "03 O O O O O O O O O O O O O O O \n"
+                     + "04 O O O O O O O O O O O O O O O \n"
+                     + "05 O O O O O O O O O O O O O O O \n"
+                     + "06 O O O O O O O O O O O O O O O \n"
+                     + "07 O O O O O O O O O O O O O O O \n"
+                     + "08 O O O O O O O O O O O O O O O \n"
+                     + "09 O O O O O O O O O O O O O O O \n"
+                     + "10 O O O O O O O O O O O O O O O \n"
+                     + "11 O O O O O O O O O O O O O O O \n"
+                     + "12 O O O O O O O O O O O O O O O \n"
+                     + "13 O O O O O O O O O O O O O O O \n"
+                     + "14 O O O O O O O O O O O O O O O \n"
+                     + "15 O O O O O O O O O O O O O O O \n", s
+        );
+    }
+
+    /**
+     * Test de l'affichage de tire avec des bateaux
+     */
+    @Test
+    public void testConsolTireFormatAvecBateau() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(15, 15, j, p);
+        j.addPlaceObstue(new Place("A6"));
+        g.addNewTire(new Tire(false, new Place("A1")));
+        g.addNewTire(new Tire(true, new Place("B1")));
+
+        String s = g.consolTireFormat();
+
+        assertEquals("Les strings ne sont pas pareil, il y a une erreur dans l'affichage",
+                     "   a b c d e f g h i j k l m n o \n"
+                     + "01 Ø ┼ O O O O O O O O O O O O O \n"
+                     + "02 O O O O O O O O O O O O O O O \n"
+                     + "03 O O O O O O O O O O O O O O O \n"
+                     + "04 O O O O O O O O O O O O O O O \n"
+                     + "05 O O O O O O O O O O O O O O O \n"
+                     + "06 p O O O O O O O O O O O O O O \n"
+                     + "07 O O O O O O O O O O O O O O O \n"
+                     + "08 O O O O O O O O O O O O O O O \n"
+                     + "09 O O O O O O O O O O O O O O O \n"
+                     + "10 O O O O O O O O O O O O O O O \n"
+                     + "11 O O O O O O O O O O O O O O O \n"
+                     + "12 O O O O O O O O O O O O O O O \n"
+                     + "13 O O O O O O O O O O O O O O O \n"
+                     + "14 O O O O O O O O O O O O O O O \n"
+                     + "15 O O O O O O O O O O O O O O O \n", s
+        );
     }
 
     /**
@@ -180,5 +324,22 @@ public class TestGrille {
 
         assertEquals("La liste n'a pas augementer de taille", 1, g.getEnemyFire().size());
         assertEquals("Le tire est bien dans la list", new Place("A6"), g.getEnemyFire().get(0));
+    }
+
+    /**
+     * On test le constructeur
+     */
+    @Test
+    public void testConstructeur() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+
+        Grille g = new Grille(12, 23, j, p);
+
+        assertEquals("Le verticale n'est pas bon", 12, g.getVerticale());
+        assertEquals("L'horisontale n'est pas bon", 23, g.getHorizontal());
+        assertEquals("Le joueur n'est pas le bon", p, g.getPlayer());
     }
 }
