@@ -238,7 +238,7 @@ public class Grille implements Serializable {
                         stop = true;
                     }
                 }
-                if (stop) {
+                if (!stop) {
                     for (Tire t : tires) {
                         Place p = t.getPlace();
                         if (p.getRow() == i && p.getColumnNumber() == j) {
