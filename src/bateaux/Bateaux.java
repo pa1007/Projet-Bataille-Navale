@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Bateaux implements Serializable {
 
@@ -102,13 +103,14 @@ public abstract class Bateaux implements Serializable {
     public void toucher(Place place) {
         touchedPlace.add(place);
     }
-    
+
     /**
      * Retourne la liste de place touche pour les tests
+     *
      * @return la liste de places touchees.
      */
-    public List<Place> getTouchedPlace(){
-    	return this.touchedPlace;
+    public List<Place> getTouchedPlace() {
+        return this.touchedPlace;
     }
 
     /**
@@ -151,6 +153,20 @@ public abstract class Bateaux implements Serializable {
         return places.size();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Bateaux)) {
+            return false;
+        }
+        Bateaux bateaux = (Bateaux) o;
+        return orientation == bateaux.orientation &&
+               Objects.equals(touchedPlace, bateaux.touchedPlace) &&
+               Objects.equals(places, bateaux.places);
+    }
+
     /**
      * Le toString, qui permet de debug
      *
@@ -163,4 +179,5 @@ public abstract class Bateaux implements Serializable {
                + ", orientation=" + orientation
                + '}';
     }
+
 }
