@@ -2,26 +2,64 @@ package test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 
+import exception.GrilleNonCreeException;
+import jeux.Grille;
+import jeux.Jeux;
+import jeux.ModeDeJeux;
 import utils.Player;
 
 public class TestPlayer {
 
 	@Test
-	public void placerBateau() {
+	public void testPlacerBateau() {
+		Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = null;
+		boolean test  = false;
+		
+		try {
+			p.placerBateau(j);
+			test = false;
+		} catch (GrilleNonCreeException e) {
+			test = true;
+		}
+		assertTrue(test == true);
+			
 	}
 
 	@Test
-	public void play() {
+	public void testPlay() {
+		
 	}
 
 	@Test
-	public void obstruerCase() {
+	public void testObstruerCase() {
+		Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = null;
+		boolean test  = false;
+		
+		try {
+			p.obstruerCase(j);
+			test = false;
+		} catch (GrilleNonCreeException e) {
+			test = true;
+		}
+		assertTrue(test == true);
+			
 	}
 
 	@Test
-	public void randBetween() {
+	public void testRandBetween() {
 		Player p = new Player();
 		boolean un = false;
 		boolean deux = false; 
@@ -44,7 +82,23 @@ public class TestPlayer {
 	}
 
 	@Test
-	public void placerBateauRandom() {
+	public void testPlacerBateauRandom() {
+		Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = null;
+		boolean test  = false;
+		
+		try {
+			p.placerBateauRandom(j);
+			test = false;
+		} catch (GrilleNonCreeException e) {
+			test = true;
+		}
+		
+		assertTrue(test == true);
+			
 	}
 
 	@Test
