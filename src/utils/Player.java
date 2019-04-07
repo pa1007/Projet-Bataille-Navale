@@ -208,7 +208,7 @@ public class Player implements Serializable {
                 }
                 Jeux.clearScreen();
                 try {
-                    boolean b = jeux.tire(p, this);
+                    boolean b = jeux.tire(p, jeux.getOtherPlayer(this));
                     System.out.println(b ? "Vous avez touché un bateau" : "Vous tomber dans l'eau, dommage");
                 }
                 catch (PlacementInvalid placementInvalid) {
