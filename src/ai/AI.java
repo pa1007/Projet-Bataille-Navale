@@ -72,7 +72,7 @@ public class AI extends Player {
     }
 
     /**
-     * Permet d'obstuer une case aléatoirement entre 0 et 10, si une case déja obstuer est selectioner, rien ne se passe
+     * Permet d'obstuer une case aléatoirement entre 0 et 10, si une case déja obstrue est selectionnee, rien ne se passe
      *
      * @param jeux jeux auxquel ajouter un cas obstrue.
      * @throws GrilleNonCreeException si la grille est null

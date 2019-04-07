@@ -19,8 +19,8 @@ public class Main {
     }
 
     /**
-     * methode statique qui lance un menu interactif qui permet de choisir les différents mode de jeux
-     * et d'accéder aux paramètres
+     * Methode statique qui lance un menu interactif qui permet de choisir les différents modes de jeux
+     * et d'accéder aux paramètres.
      */
     public static void menuInteractif() throws GrilleNonCreeException, IOException, LoadSaveException {
         int     choix;
@@ -94,6 +94,9 @@ public class Main {
         }
     }
     
+    /**
+     * Methode statique qui permet d'afficher les regles du jeux dans la console.
+     */
     public static void reglesDuJeux() {
     	StringBuffer b = new StringBuffer();
     	String string;

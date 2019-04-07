@@ -23,35 +23,35 @@ public class GraphicPlayer extends Player implements Serializable {
 
     /**
      * Le boolean en volatile (Permet de linker differents thread java (Cf javadoc principal, site oracle) <br>
-     * Utilisation obligatoire dans notre cas, permet de linker le program a des listener sur das JPanel
+     * Utilisation obligatoire dans notre cas, permet de linker le programme a des listeners sur des JPanel
      */
     private static volatile boolean wait;
 
     /**
-     * La table princiaple
+     * La table principale
      */
     private Map<Integer, List<GraphicCase>> map;
 
     /**
-     * La place courrante en cas de demande par listener
+     * La place courrante en cas de demande par listener.
      */
     private Place curentPlace;
 
     /**
-     * Le listener a ajouter, change a chaque ajout
+     * Le listener a ajouter, change a chaque ajout.
      */
     private MousePlacementCaseListener listener;
 
     /**
-     * La classe main , finak pour ne pas pouvoir la changer
+     * La classe main , finale pour ne pas pouvoir la changer.
      */
     private final GraphicMain graphicMain;
 
     /**
-     * Le constructeur principal
+     * Le constructeur principal.
      *
-     * @param map         Table pour chaque ligne et ranger
-     * @param graphicMain instance de la classe princiaple pour le graphique
+     * @param map         Table pour chaque lignes et ranger
+     * @param graphicMain Instance de la classe princiaple pour les graphismes
      */
     public GraphicPlayer(Map<Integer, List<GraphicCase>> map, GraphicMain graphicMain) {
         this.graphicMain = graphicMain;
@@ -60,7 +60,7 @@ public class GraphicPlayer extends Player implements Serializable {
 
     /**
      * {@inheritDoc}
-     * Method graphique <br>
+     * Methode graphique <br>
      *
      * @param j le jeux
      * @throws GrilleNonCreeException throw si la grille est null
@@ -163,7 +163,7 @@ public class GraphicPlayer extends Player implements Serializable {
     /**
      * {@inheritDoc}
      * Method graphic <br>
-     * Utilisation d'un AtomicBoolean pour ceci, permet l'utilisation d'un labda (->) et d'un boolean simple (Remplacable par une variable static)
+     * Utilisation d'un AtomicBoolean pour ceci, permet l'utilisation d'un lambda (->) et d'un boolean simple (Remplacable par une variable static)
      *
      * @param jeux le jeux
      */
@@ -190,17 +190,17 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * Permet d'ajouter le place dans la variable
+     * Permet d'ajouter la place dans la variable
      *
-     * @param curentPlace la place pris
+     * @param curentPlace la place occupee
      */
     public void setCurentPlace(Place curentPlace) {
         this.curentPlace = curentPlace;
     }
 
     /**
-     * Permet de placer les listener pour les bateaux, avec la method {@link #placerPlaceListener()} <br>
-     * la methode attent l'input user, avec la variable <code>wait</code> ajout la place dans <code>this.curentPlace</code>
+     * Permet de placer les listeners pour les bateaux, avec la methode {@link #placerPlaceListener()} <br>
+     * la methode attends l'input user, avec la variable <code>wait</code> ajout la place dans <code>this.curentPlace</code>
      *
      * @param message le message a afficher
      * @return la place selectionner, (stocker dans curentPlace aussi )
@@ -219,7 +219,7 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * Permet de changer la state de tous les bateaux
+     * Permet de changer la state de tous les bateaux.
      *
      * @param state la state a metre, compris entre 0 et 2
      */
@@ -235,7 +235,7 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * Permet de save et exit en même temp
+     * Permet de save et exit en même temps.
      *
      * @param jeux le jeux
      * @throws IOException exception throw par save
@@ -247,9 +247,9 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * Attend l'imput user pour tirer
+     * Attend l'imput user pour tirer.
      *
-     * @return la place tirer par l'utilisateur (stocker dans curentPlace aussi)
+     * @return la place tire par l'utilisateur (stocker dans curentPlace aussi)
      */
     private Place getUserTireInput() {
         listener = new MousePlacementCaseListener(this);
@@ -294,7 +294,7 @@ public class GraphicPlayer extends Player implements Serializable {
                     if (p != null) {
                         graphicMain.setMessage("Le bateau fais " + taille + " de longeur ! Choisir sont orientation");
                         String[] options = {"Vertical", "Horizontal"};
-                        int      n       = graphicMain.askChois("Vertical ou Horizontal ?", options);
+                        int      n       = graphicMain.askChoice("Vertical ou Horizontal ?", options);
                         b = options[n].equals("Horizontal");
                     }
                     else {
@@ -326,7 +326,7 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * Place <code>this.listener</code> sur toutes les cases présente
+     * Place <code>this.listener</code> sur toutes les cases présentes
      */
     private void placerAllCase() {
         for (List<GraphicCase> lgc : map.values()) {
@@ -363,9 +363,9 @@ public class GraphicPlayer extends Player implements Serializable {
     }
 
     /**
-     * Gère la variable wait, permet d'arrete l'attente du programme
+     * Gere la variable wait, permet d'arrete l'attente du programme.
      *
-     * @param wait la valeur a metre
+     * @param wait la valeure a mettre
      */
     public static void setWait(boolean wait) {
         GraphicPlayer.wait = wait;

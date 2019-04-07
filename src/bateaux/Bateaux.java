@@ -39,9 +39,9 @@ public abstract class Bateaux implements Serializable {
     /**
      * Constructeur de bateau (test effectuer avant)
      *
-     * @param place       las places prises par les parties du bateau
+     * @param place       les places prises par les parties du bateau
      * @param game        l'instance du jeu
-     * @param player      le joueur propriétaire
+     * @param player      le joueur proprietaire
      * @param orientation l'orientation du bateau
      */
     public Bateaux(Place[] place, Jeux game, Player player, boolean orientation) {
@@ -53,7 +53,7 @@ public abstract class Bateaux implements Serializable {
     }
 
     /**
-     * @return L'orientatiion.
+     * @return L'orientation.
      */
     public boolean getOrientation() {
         return this.orientation;
@@ -98,7 +98,7 @@ public abstract class Bateaux implements Serializable {
     /**
      * Ajoute facilement un tire sur un bateau
      *
-     * @param place la place touché
+     * @param place la place touche
      */
     public void toucher(Place place) {
         touchedPlace.add(place);
@@ -114,16 +114,16 @@ public abstract class Bateaux implements Serializable {
     }
 
     /**
-     * @return le nombre de bout de bateau toucher
+     * @return le nombre de bout de bateau touche.
      */
     public int nbToucher() {
         return touchedPlace.size();
     }
 
     /**
-     * @return le poucentage de damage du bateau
+     * @return le poucentage de degats du bateau
      */
-    public double getPurcentDamage() {
+    public double getPercentDamage() {
         return ((double) nbToucher()) / taille();
     }
 

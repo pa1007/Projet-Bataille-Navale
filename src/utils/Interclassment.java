@@ -60,10 +60,10 @@ public class Interclassment {
          */
         @Override
         public int compare(Bateaux o1, Bateaux o2) {
-            if (o1.getPurcentDamage() == o2.getPurcentDamage()) {
+            if (o1.getPercentDamage() == o2.getPercentDamage()) {
                 return 0;
             }
-            else if (o1.getPurcentDamage() > o2.getPurcentDamage()) {
+            else if (o1.getPercentDamage() > o2.getPercentDamage()) {
                 return 1;
             }
             return -1;

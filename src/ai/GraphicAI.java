@@ -9,12 +9,12 @@ import jeux.Place;
 public class GraphicAI extends AI {
 
     /**
-     * L'instance graphique main
+     * L'instance graphique main.
      */
     private final GraphicMain graphicMain;
 
     /**
-     * Constructeur qui appel selui de AI, et permet de lier les graphisme
+     * Constructeur qui appel celui de AI, et permet de lui lier les graphismes
      *
      * @param graphicMain L'instance graphique main
      */
@@ -36,7 +36,7 @@ public class GraphicAI extends AI {
 
     /**
      * {@inheritDoc} <br>
-     * Permet de refress les possition pour les afficher chez tout le monde
+     * Permet de refresh les possition pour les afficher chez tout le monde
      *
      * @param jeux jeux auxquel ajouter un cas obstrue.
      * @throws GrilleNonCreeException si la grille est null

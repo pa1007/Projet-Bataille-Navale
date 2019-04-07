@@ -20,37 +20,37 @@ import java.util.Map;
 public class GraphicMain extends JFrame implements Serializable {
 
     /**
-     * la taille en horizontale et verticale
+     * La taille en horizontale et verticale.
      */
     private int h, v;
 
     /**
-     * Une instance du jeu
+     * Une instance du jeu.
      */
     private Jeux j;
 
     /**
-     * Les JPanel presents
+     * Les JPanel presents.
      */
     private JPanel leftPanel, rightPanel, contentPane;
 
     /**
-     * affichage du text
+     * Affichage du texte.
      */
     private JLabel mainText;
 
     /**
-     * Le stockage des cases, table qui lie l'horizontale et la verticale
+     * Le stockage des cases, table qui lie l'horizontale et la verticale.
      */
     private Map<Integer, List<GraphicCase>> map;
 
     /**
-     * Le bouton present
+     * Le bouton present.
      */
     private JButton mainButton;
 
     /**
-     * Construit la JFrame princiaple
+     * Construit la JFrame principale.
      */
     public GraphicMain() {
         map = new HashMap<>();
@@ -88,45 +88,45 @@ public class GraphicMain extends JFrame implements Serializable {
     }
 
     /**
-     * Lance le jeu
+     * Lance le jeu.
      *
-     * @throws GrilleNonCreeException si la grille n'a pas été mise pour l'un des joueur
+     * @throws GrilleNonCreeException si la grille n'a pas été initialisee pour l'un des joueur.
      */
     public void launchGame() throws GrilleNonCreeException {
         j.lancerPartieGraph(this);
     }
 
     /**
-     * @return une table avec pour chaque int 0 jusqu'a horisontale -1 une liste de 0 a verticale -1 de case
+     * @return une table avec pour chaque int 0 jusqu'a horizontale -1 une liste de 0 a verticale -1 de cases.
      */
     public Map<Integer, List<GraphicCase>> getMap() {
         return map;
     }
 
     /**
-     * @return l'instance du jeu
+     * @return l'instance du jeu.
      */
     public Jeux getJeux() {
         return j;
     }
 
     /**
-     * Permet de metre un message dans le texte principale
+     * Permet de mettre un message dans le texte principal.
      *
-     * @param s le message a mêtre
+     * @param s le message a mettre
      */
     public void setMessage(String s) {
         mainText.setText(s);
     }
 
     /**
-     * Creation facile de demande de rentrer utilisateur
+     * Creation facile de demande de rentre utilisateur.
      *
      * @param title le titre de la fenetre
      * @param o     Les choix dispo
      * @return le numero du choix, -1 si quiter
      */
-    public int askChois(String title, String[] o) {
+    public int askChoice(String title, String[] o) {
         return JOptionPane.showOptionDialog(
                 this,
                 title,
@@ -140,7 +140,7 @@ public class GraphicMain extends JFrame implements Serializable {
     }
 
     /**
-     * Permet d'ajouter un text sur le bouton et une action
+     * Permet d'ajouter un texte sur le bouton et une action.
      *
      * @param s              le texte a ajouter
      * @param actionListener l'action a effectuer
@@ -152,7 +152,7 @@ public class GraphicMain extends JFrame implements Serializable {
     }
 
     /**
-     * Permet de reset le bouton
+     * Permet de reset le bouton.
      */
     public void resetMainButton() {
         mainButton.setText("");
@@ -165,7 +165,7 @@ public class GraphicMain extends JFrame implements Serializable {
     }
 
     /**
-     * Crée les panels
+     * Cree les panels.
      */
     private void createPanels() {
         leftPanel = new JPanel();
@@ -181,7 +181,7 @@ public class GraphicMain extends JFrame implements Serializable {
     }
 
     /**
-     * Initialise le jeux
+     * Initialise le jeux.
      */
     private void initGame() {
         while (h < 10 || h > 26) {
@@ -203,7 +203,7 @@ public class GraphicMain extends JFrame implements Serializable {
             }
         }
         String[] s = {"MonoPLayer", "VS_AI"};
-        int      r = askChois("Choix du mode de jeu", s);
+        int      r = askChoice("Choix du mode de jeu", s);
         r = s[r].equals("MonoPLayer") ? ModeDeJeux.MONO_JOUEUR : ModeDeJeux.IA;
         List<Player> p = new ArrayList<>();
         p.add(new GraphicPlayer(map, this));
@@ -217,7 +217,7 @@ public class GraphicMain extends JFrame implements Serializable {
     }
 
     /**
-     * Place les letres sur le grid
+     * Place les lettres sur le grid.
      */
     private void placeLetter() {
         char[] alpha = "abcdefghijklmnopqrstuvwxyz".toCharArray();

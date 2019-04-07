@@ -60,7 +60,7 @@ public class TestBateaux {
 
         b.toucher(new Place("A6"));
 
-        assertEquals("Il y a un tire", (double) 1 / 5, b.getPurcentDamage(), 0);
+        assertEquals("Il y a un tire", (double) 1 / 5, b.getPercentDamage(), 0);
     }
 
     /**
