@@ -1,5 +1,7 @@
 package test;
 
+import bateaux.Bateaux;
+import bateaux.ContreTorpilleur;
 import exception.BateauxMembreInvalide;
 import exception.BateauxStartPointInvalide;
 import jeux.Grille;
@@ -9,16 +11,12 @@ import jeux.Place;
 import org.junit.Test;
 import utils.Player;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TestJeux {
-
-    @Test
-    public void tire() {
-    }
 
     /**
      * Test de la methode checkPlace en horizontale
@@ -140,11 +138,89 @@ public class TestJeux {
         }
     }
 
+    /**
+     * Test quand il n'y a pas de bateau
+     */
     @Test
-    public void bateauAt() {
+    public void bateauAtNoBateau() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(10, 10, j, p);
+
+        Bateaux ba = new ContreTorpilleur(new Place[]{new Place("A5")}, j, p, true);
+        g.setListBateaux(Collections.singletonList(ba));
+
+        Bateaux b = j.bateauAt(new Place("A6"), g);
+
+        assertNull("Il n'y a pas de bateau ici", b);
     }
 
+    /**
+     * Test quand il y a un bateau
+     */
     @Test
-    public void getOtherPlayer() {
+    public void bateauAtBateau() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(10, 10, j, p);
+
+        Bateaux ba = new ContreTorpilleur(new Place[]{new Place("A5")}, j, p, true);
+        g.setListBateaux(Collections.singletonList(ba));
+
+        Bateaux b = j.bateauAt(new Place("A5"), g);
+
+        assertEquals("Il n'y a pas de bateau ici", ba, b);
+    }
+
+    /**
+     * Test quand il n'y a pas de bateau
+     */
+    @Test
+    public void bateauAtPasDansGrille() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux   j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+        Grille g = new Grille(10, 10, j, p);
+
+        Bateaux b = j.bateauAt(new Place("Z84897"), g);
+
+        assertNull("Il n'y a pas de bateau ici", b);
+    }
+
+    /**
+     * Test qui retourne le joueur adverse en cas de 1 joueur, retourne celui mis en param
+     */
+    @Test
+    public void testGetOtherPlayer1Player() {
+        Player       p  = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        Jeux j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+
+        Player l = j.getOtherPlayer(p);
+
+        assertEquals("Le player devrai etre le même", p, l);
+    }
+
+    /**
+     * Test qui retourne le joueur adverse
+     */
+    @Test
+    public void testGetOtherPlayer2Player() {
+        Player       p  = new Player();
+        Player       p2 = new Player();
+        List<Player> pL = new ArrayList<>();
+        pL.add(p);
+        pL.add(p2);
+        Jeux j = new Jeux(ModeDeJeux.MONO_JOUEUR, pL);
+
+        Player l = j.getOtherPlayer(p);
+
+        assertEquals("Le player ne devrai pas etre le même que celui mis dans la fonction", p2, l);
     }
 }
