@@ -28,7 +28,7 @@ public class Main {
         Jeux    j;
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvenue dans la bataille navale :");
-        System.out.println("1 : MonoJoeur");
+        System.out.println("1 : MonoJoueur");
         System.out.println("2 : Lancer une partie en mode graphique!!");
         System.out.println("9 : Changer le path de sauvegarde (A garder pour retrouver les sauvegaedes )");
         System.out.println("10 : Reprendre la derniere partie from savedFile");

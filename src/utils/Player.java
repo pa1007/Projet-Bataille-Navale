@@ -68,9 +68,9 @@ public class Player implements Serializable {
         Bateaux p1, p2, p3, p4, p5;
         while (true) {
             try {
-                System.out.println("Ajouter le bateux de 5 de Longeur ex: A6");
+                System.out.println("Ajouter le bateaux de 5 de Longeur ex: A6");
                 s = sc.nextLine();
-                System.out.println("true = Horizontale, false = Vertiacale");
+                System.out.println("true = Horizontale, false = Verticale");
                 boolean b = sc.nextBoolean();
                 sc.nextLine();
                 Place[] pl = j.checkPlace(s, grille, 5, b);
@@ -87,9 +87,9 @@ public class Player implements Serializable {
         System.out.println(grille.consolBateauFormat());
         while (true) {
             try {
-                System.out.println("Ajouter le bateux de 4 de Longeur ex: A6");
+                System.out.println("Ajouter le bateaux de 4 de Longeur ex: A6");
                 s = sc.nextLine();
-                System.out.println("true = Horizontale, false = Vertiacale");
+                System.out.println("true = Horizontale, false = Verticale");
                 boolean b = sc.nextBoolean();
                 sc.nextLine();
                 Place[] pl = j.checkPlace(s, grille, 4, b);
@@ -106,9 +106,9 @@ public class Player implements Serializable {
         System.out.println(grille.consolBateauFormat());
         while (true) {
             try {
-                System.out.println("Ajouter le bateux de 3 de Longeur ex: A6");
+                System.out.println("Ajouter le bateaux de 3 de Longeur ex: A6");
                 s = sc.nextLine();
-                System.out.println("true = Horizontale, false = Vertiacale");
+                System.out.println("true = Horizontale, false = Verticale");
                 boolean b = sc.nextBoolean();
                 sc.nextLine();
                 Place[] pl = j.checkPlace(s, grille, 3, b);
@@ -125,9 +125,9 @@ public class Player implements Serializable {
         System.out.println(grille.consolBateauFormat());
         while (true) {
             try {
-                System.out.println("Ajouter le bateux de 2 de Longeur ex: A6");
+                System.out.println("Ajouter le bateaux de 2 de Longeur ex: A6");
                 s = sc.nextLine();
-                System.out.println("true = Horizontale, false = Vertiacale");
+                System.out.println("true = Horizontale, false = Verticale");
                 boolean b = sc.nextBoolean();
                 sc.nextLine();
                 Place[] pl = j.checkPlace(s, grille, 2, b);
@@ -144,7 +144,7 @@ public class Player implements Serializable {
         System.out.println(grille.consolBateauFormat());
         while (true) {
             try {
-                System.out.println("Ajouter le bateux de 1 de Longeur ex: A6");
+                System.out.println("Ajouter le bateaux de 1 de Longeur ex: A6");
                 s = sc.nextLine();
                 Place[] pl = j.checkPlace(s, grille, 1, true);
                 p1 = new Croiseur(pl, j, this, true);
